@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KENDRICK & ARTISTS – Comedy</title>
+
+<style>
+  body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+    background: #fff;
+    color: #003366;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1000;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .nav-trigger {
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .roster-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 30px 40px;
+  }
+
+  .artist-card {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 3px solid transparent;
+    transition: border 0.2s;
+  }
+
+  .artist-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .artist-name {
+    margin-top: 8px;
+    font-size: 13px;
+  }
+
+  .artist-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .artist-link:hover .artist-card {
+    border-color: #003366;
+  }
+
+  @media (max-width: 900px) {
+    .roster-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+
+
+  .menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #fff;
+  z-index: 999;
+  padding: 120px 60px;
+  transform: translateY(-100%);
+  transition: transform 0.5s ease;
+}
+
+.menu-overlay.active {
+  transform: translateY(0);
+}
+
+.column-title {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+}
+
+.menu-link {
+  display: block;
+  font-size: 3rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.menu-link.indent {
+  padding-left: 40px;
+}
+
+
+
+
+.menu-overlay {
+  pointer-events: none;
+}
+
+.menu-overlay.active {
+  pointer-events: auto;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">KENDRICK & ARTISTS</div>
+  <div class="nav-trigger" id="menuBtn" onclick="toggleMenu()">menu</div>
+
+</header>
+
+<div class="menu-overlay" id="menu">
+  <div class="menu-content">
+    <h3 class="column-title">Talent</h3>
+    <a href="Artists.html" class="menu-link">Personal Appearance</a>
+    <a href="index.html" class="menu-link indent">Home</a>
+  </div>
+</div>
+
+
+<main class="roster-grid" id="comedyGrid">
+</main>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("menu");
+    const btn = document.getElementById("menuBtn");
+
+    menu.classList.toggle("active");
+    btn.textContent = menu.classList.contains("active") ? "close" : "menu";
+  }
+</script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+  import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAGbc3hE5qsN8axCsRNaNH4CNSDp3Yave8",
+    authDomain: "kendrick-artists-clarck.firebaseapp.com",
+    projectId: "kendrick-artists-clarck",
+    storageBucket: "kendrick-artists-clarck.firebasestorage.app",
+    messagingSenderId: "695415417830",
+    appId: "1:695415417830:web:f5d196cdf9334f80220427"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function loadComedyArtists() {
+    const grid = document.getElementById("comedyGrid");
+    grid.innerHTML = "";
+
+    const q = query(
+      collection(db, "artists"),
+      where("active", "==", true),
+      where("section", "==", "comedy")
+    );
+
+    const snapshot = await getDocs(q);
+
+    snapshot.forEach(docSnap => {
+      const artist = docSnap.data();
+
+      const a = document.createElement("a");
+      a.className = "artist-link";
+      a.href = `profile.html?id=${docSnap.id}&from=comedy`;
+
+
+      a.innerHTML = `
+        <div class="artist-card">
+          <img src="${artist.imageUrl || 'https://via.placeholder.com/500'}">
+        </div>
+        <div class="artist-name">${artist.name}</div>
+      `;
+
+      grid.appendChild(a);
+    });
+  }
+
+  window.addEventListener("DOMContentLoaded", loadComedyArtists);
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

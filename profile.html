@@ -110,14 +110,26 @@
 <body>
 
   <nav class="back-nav">
-    <a href="Artists.html" class="back-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-      Back to Artists
-    </a>
-  </nav>
+  <a href="#" class="back-btn" id="backBtn">
+    Back
+  </a>
+</nav>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const from = params.get("from");
+
+  const backBtn = document.getElementById("backBtn");
+
+  if (from === "comedy") {
+    backBtn.href = "comedy.html";
+    backBtn.textContent = "Back to Comedy";
+  } else {
+    backBtn.href = "Artists.html";
+    backBtn.textContent = "Back to Artists";
+  }
+</script>
+
 
   <div class="container">
     <img id="artistImage" alt="Loading Artist...">

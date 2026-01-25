@@ -158,6 +158,12 @@
             <input id="name" placeholder="Artist Name">
             <input id="slug" placeholder="URL Slug (e.g. kendrick-lamar)">
             <input id="category" placeholder="Category (e.g. West Coast)">
+            <select id="section">
+  <option value="">Select Section</option>
+  <option value="personal">Personal Appearance</option>
+  <option value="comedy">Comedy</option>
+</select>
+
             <input id="imageUrl" placeholder="Image URL">
             <textarea id="bio" placeholder="Artist Biography"></textarea>
             <div class="checkbox-group">
@@ -249,11 +255,14 @@
       const imageUrl = document.getElementById("imageUrl").value.trim();
       const category = document.getElementById("category").value.trim();
       const active = document.getElementById("active").checked;
+      const section = document.getElementById("section").value;
 
-      if (!name || !slug) {
-        alert("Name and Slug are required.");
-        return;
-      }
+
+      if (!section) {
+  alert("Please select a section.");
+  return;
+}
+
 
       saveBtn.disabled = true;
       saveBtn.textContent = "Processing...";
@@ -261,12 +270,12 @@
       try {
         if (currentEditId) {
           const docRef = doc(db, "artists", currentEditId);
-          await updateDoc(docRef, { name, slug, bio, imageUrl, category, active, updatedAt: serverTimestamp() });
+          await updateDoc(docRef, { name, slug, bio, imageUrl, category, section, active, updatedAt: serverTimestamp() });
           alert("Artist updated successfully!");
           currentEditId = null;
           saveBtn.textContent = "Save Artist";
         } else {
-          await addDoc(collection(db, "artists"), { name, slug, bio, imageUrl, category, active, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
+          await addDoc(collection(db, "artists"), { name, slug, bio, imageUrl, category, section, active, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
           alert("Artist added successfully!");
         }
         
@@ -277,6 +286,8 @@
         document.getElementById("imageUrl").value = "";
         document.getElementById("category").value = "";
         document.getElementById("active").checked = false;
+        document.getElementById("section").value = "";
+
         
         loadArtists();
       } catch (err) {
@@ -300,6 +311,8 @@
         document.getElementById("imageUrl").value = artist.imageUrl;
         document.getElementById("category").value = artist.category;
         document.getElementById("active").checked = artist.active;
+        document.getElementById("section").value = artist.section;
+        
 
         currentEditId = id;
         saveBtn.textContent = "Update Artist";

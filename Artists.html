@@ -185,8 +185,8 @@ header {
       <div class="menu-column">
         <h3 class="column-title">Talent</h3>
         
-        <a href="#" class="menu-link">Comedy</a>
-        <a href="index.html" class="menu-link">home</a>
+        <a href="comedy.html" class="menu-link">Comedy</a>
+
       </div>
 </div>
 
@@ -231,8 +231,17 @@ function toggleMenu() {
 </main>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAGbc3hE5qsN8axCsRNaNH4CNSDp3Yave8",
@@ -250,7 +259,13 @@ async function loadArtists() {
   const grid = document.getElementById("rosterGrid");
   grid.innerHTML = "";
 
-  const snapshot = await getDocs(collection(db, "artists"));
+  const q = query(
+  collection(db, "artists"),
+  where("active", "==", true),
+  where("section", "==", "personal")
+);
+
+const snapshot = await getDocs(q);
 
   snapshot.forEach(docSnap => {
     const artist = docSnap.data();
@@ -258,7 +273,8 @@ async function loadArtists() {
 
     const a = document.createElement("a");
     a.className = "artist-link";
-    a.href = `profile.html?id=${docSnap.id}`;
+   a.href = `profile.html?id=${docSnap.id}&from=personal`;
+
 
     a.innerHTML = `
       <div class="artist-card">
