@@ -59,13 +59,11 @@
 
    /* Profile Content */
     #artistImage {
-      width: auto;           /* Allow width to scale based on height */
-      max-width: 100%;       /* Prevent it from being wider than the screen */
-      height: auto;          /* Maintain original aspect ratio */
-      max-height: 60vh;      /* LIMIT height to 60% of the screen height */
-      object-fit: contain;   /* Ensure the full image is visible, no cropping */
-      display: block;        /* Centers the image if it's narrow */
-      margin: 0 auto 20px;   /* Center and add space below */
+      width: 100%;           /* Changed: Set to 100% to match your example photo style */
+      max-width: 100%;       
+      height: auto;          /* Maintains original aspect ratio */
+      display: block;        
+      margin: 0 auto 20px;   
       border-radius: 4px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
@@ -74,14 +72,14 @@
       max-width: 800px;
       margin: 0 auto;
       padding: 20px;
-      display: flex;         /* Use flexbox to stack items */
+      display: flex;         
       flex-direction: column;
-      align-items: center;   /* Center text and image */
-      text-align: center;    /* Center the Name and Bio */
+      align-items: center;   
+      text-align: center;    
     }
 
     h1 {
-      font-size: clamp(1.5rem, 5vh, 2.5rem); /* Dynamically shrinks text on small screens */
+      font-size: clamp(1.5rem, 5vh, 2.5rem); 
       font-weight: 800;
       margin-bottom: 5px;
       letter-spacing: -1px;
@@ -102,6 +100,52 @@
       body { padding-top: 60px; }
       .container { padding: 15px; }
     }
+
+
+
+    .video-section iframe {
+  width: 100%;
+  height: 400px;
+  margin: 30px 0;
+  border-radius: 6px;
+}
+
+#artistGallery {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+#artistGallery img {
+  width: 100%;          /* Changed: Photos now expand to container width */
+  max-width: 100%;      
+  height: auto;         /* Maintains original proportions */
+  object-fit: contain;  
+  border-radius: 4px;
+}
+
+
+.gallery-item {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.gallery-item img {
+  width: 100%;          /* Changed: Photos now expand to container width */
+  max-width: 100%;      
+  height: auto;         /* Maintains original proportions */
+  object-fit: contain;  
+  border-radius: 8px;
+}
+
+
+.extra-bio {
+  max-width: 700px;
+  margin: 15px auto;
+  font-size: 16px;
+  line-height: 1.6;
+}
 
     
   </style>
@@ -131,55 +175,117 @@
 </script>
 
 
-  <div class="container">
-    <img id="artistImage" alt="Loading Artist...">
-    <h1 id="artistName"></h1>
-    <p id="artistBio"></p>
+ <div class="container">
+
+  <img id="artistImage" alt="Loading Artist...">
+
+  <h1 id="artistName"></h1>
+
+  <p id="artistBio"></p>
+<div id="videoSection" style="display: none; margin: 20px 0;">
+  <iframe id="artistVideo" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<p id="bioAfterVideo" class="extra-bio"></p>
+
+
+<div id="artistGallery" style="margin: 20px 0;">
+
+  <div class="gallery-item">
+    <img id="galleryImg1" />
+    <p id="bioAfterImage1" class="extra-bio"></p>
   </div>
 
+  <div class="gallery-item">
+    <img id="galleryImg2" />
+    <p id="bioAfterImage2" class="extra-bio"></p>
+  </div>
+
+  <div class="gallery-item">
+    <img id="galleryImg3" />
+  </div>
+
+</div>
+
+
+</div>
+
+
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAGbc3hE5qsN8axCsRNaNH4CNSDp3Yave8",
-      authDomain: "kendrick-artists-clarck.firebaseapp.com",
-      projectId: "kendrick-artists-clarck",
-      storageBucket: "kendrick-artists-clarck.firebasestorage.app",
-      messagingSenderId: "695415417830",
-      appId: "1:695415417830:web:f5d196cdf9334f80220427"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyAGbc3hE5qsN8axCsRNaNH4CNSDp3Yave8",
+    authDomain: "kendrick-artists-clarck.firebaseapp.com",
+    projectId: "kendrick-artists-clarck",
+    storageBucket: "kendrick-artists-clarck.firebasestorage.app",
+    messagingSenderId: "695415417830",
+    appId: "1:695415417830:web:f5d196cdf9334f80220427"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    async function loadProfile() {
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get("id");
-      
-      if (!id) {
-        document.querySelector('.container').innerHTML = "<h2>Artist not found.</h2>";
-        return;
-      }
+  async function loadProfile() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
 
-      try {
-        const snap = await getDoc(doc(db, "artists", id));
-        if (snap.exists()) {
-          const artist = snap.data();
-          document.getElementById("artistName").textContent = artist.name;
-          document.getElementById("artistBio").textContent = artist.bio;
-          document.getElementById("artistImage").src = artist.imageUrl;
-          document.title = `${artist.name} | Profile`;
-        } else {
-          document.getElementById("artistName").textContent = "Artist Not Found";
-        }
-      } catch (error) {
-        console.error("Error loading profile:", error);
-      }
+    if (!id) {
+      document.querySelector(".container").innerHTML = "<h2>Artist not found.</h2>";
+      return;
     }
 
-    window.addEventListener("DOMContentLoaded", loadProfile);
-  </script>
+    try {
+      const snap = await getDoc(doc(db, "artists", id));
+
+      if (snap.exists()) {
+        const artist = snap.data();
+
+        document.getElementById("artistName").textContent = artist.name;
+        document.getElementById("artistBio").textContent = artist.bio;
+        document.getElementById("artistImage").src = artist.imageUrl;
+
+        document.getElementById("bioAfterVideo").textContent =
+          artist.bioAfterVideo || "";
+
+        document.getElementById("bioAfterImage1").textContent =
+          artist.bioAfterImage1 || "";
+
+        document.getElementById("bioAfterImage2").textContent =
+          artist.bioAfterImage2 || "";
+
+        /* VIDEO */
+        if (artist.videoUrl) {
+          const video = document.getElementById("artistVideo");
+          video.src = artist.videoUrl;
+          document.getElementById("videoSection").style.display = "block";
+        }
+
+        /* GALLERY (FIXED – NO DUPLICATION) */
+        if (artist.galleryImages) {
+          if (artist.galleryImages[0])
+            document.getElementById("galleryImg1").src = artist.galleryImages[0];
+
+          if (artist.galleryImages[1])
+            document.getElementById("galleryImg2").src = artist.galleryImages[1];
+
+          if (artist.galleryImages[2])
+            document.getElementById("galleryImg3").src = artist.galleryImages[2];
+        }
+
+        document.title = `${artist.name} | Profile`;
+      } else {
+        document.getElementById("artistName").textContent = "Artist Not Found";
+      }
+    } catch (error) {
+      console.error("Error loading profile:", error);
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", loadProfile);
+</script>
+
 
 </body>
 </html>

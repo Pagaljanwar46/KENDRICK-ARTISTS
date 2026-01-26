@@ -166,6 +166,15 @@
 
             <input id="imageUrl" placeholder="Image URL">
             <textarea id="bio" placeholder="Artist Biography"></textarea>
+            <input id="videoUrl" placeholder="Video URL (YouTube Embed)">
+<input id="galleryImages" placeholder="Gallery Images (comma-separated URLs)">
+<textarea id="bioAfterVideo" placeholder="Text after video"></textarea>
+
+<textarea id="bioAfterImage1" placeholder="Text after first image"></textarea>
+
+<textarea id="bioAfterImage2" placeholder="Text after second image"></textarea>
+
+
             <div class="checkbox-group">
                 <input type="checkbox" id="active">
                 <label for="active">Set as Active (Visible on site)</label>
@@ -256,6 +265,14 @@
       const category = document.getElementById("category").value.trim();
       const active = document.getElementById("active").checked;
       const section = document.getElementById("section").value;
+      const videoUrl = document.getElementById("videoUrl").value.trim();
+const galleryInput = document.getElementById("galleryImages").value.trim();
+const galleryImages = galleryInput ? galleryInput.split(",").map(url => url.trim()) : [];
+const bioAfterVideo = document.getElementById("bioAfterVideo").value.trim();
+const bioAfterImage1 = document.getElementById("bioAfterImage1").value.trim();
+const bioAfterImage2 = document.getElementById("bioAfterImage2").value.trim();
+
+
 
 
       if (!section) {
@@ -270,12 +287,18 @@
       try {
         if (currentEditId) {
           const docRef = doc(db, "artists", currentEditId);
-          await updateDoc(docRef, { name, slug, bio, imageUrl, category, section, active, updatedAt: serverTimestamp() });
+          await updateDoc(docRef, { name, slug, bio, imageUrl, category, section, active, videoUrl: videoUrl || null, bioAfterVideo: bioAfterVideo || null,
+bioAfterImage1: bioAfterImage1 || null,
+bioAfterImage2: bioAfterImage2 || null, galleryImages: galleryImages.length ? galleryImages : null,
+updatedAt: serverTimestamp() });
           alert("Artist updated successfully!");
           currentEditId = null;
           saveBtn.textContent = "Save Artist";
         } else {
-          await addDoc(collection(db, "artists"), { name, slug, bio, imageUrl, category, section, active, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
+          await addDoc(collection(db, "artists"), { name, slug, bio, imageUrl, category, section, bioAfterVideo: bioAfterVideo || null,
+bioAfterImage1: bioAfterImage1 || null,
+bioAfterImage2: bioAfterImage2 || null,
+active, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
           alert("Artist added successfully!");
         }
         
@@ -287,6 +310,12 @@
         document.getElementById("category").value = "";
         document.getElementById("active").checked = false;
         document.getElementById("section").value = "";
+        document.getElementById("videoUrl").value = "";
+        document.getElementById("galleryImages").value = "";
+        document.getElementById("bioAfterVideo").value = "";
+        document.getElementById("bioAfterImage1").value = "";
+        document.getElementById("bioAfterImage2").value = "";
+
 
         
         loadArtists();
@@ -312,7 +341,14 @@
         document.getElementById("category").value = artist.category;
         document.getElementById("active").checked = artist.active;
         document.getElementById("section").value = artist.section;
-        
+        document.getElementById("videoUrl").value = artist.videoUrl || "";
+document.getElementById("galleryImages").value = artist.galleryImages ? artist.galleryImages.join(", ") : "";
+document.getElementById("bioAfterVideo").value = artist.bioAfterVideo || "";
+document.getElementById("bioAfterImage1").value = artist.bioAfterImage1 || "";
+document.getElementById("bioAfterImage2").value = artist.bioAfterImage2 || "";
+
+
+
 
         currentEditId = id;
         saveBtn.textContent = "Update Artist";
