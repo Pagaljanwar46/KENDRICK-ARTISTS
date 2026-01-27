@@ -184,8 +184,22 @@
     </div>
 
     <h2>Artists List</h2>
-    <div id="artistsList"></div>
-  </div>
+
+<!-- Search & Sort Controls -->
+<div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
+  <input type="text" id="searchInput" placeholder="Search by name or category..." style="flex:1; padding:8px; border-radius:4px; border:1px solid #ddd;">
+  
+  <select id="sortSelect" style="padding:8px; border-radius:4px; border:1px solid #ddd;">
+    <option value="">Sort by</option>
+    <option value="date-desc">Newest First</option>
+    <option value="date-asc">Oldest First</option>
+    <option value="name-asc">A → Z</option>
+    <option value="name-desc">Z → A</option>
+  </select>
+</div>
+
+<div id="artistsList"></div>
+
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
@@ -220,41 +234,83 @@
     const saveBtn = document.getElementById("saveBtn");
     let currentEditId = null;
 
-    // Load all artists
     async function loadArtists() {
-      const artistsList = document.getElementById("artistsList");
-      artistsList.innerHTML = "<p>Loading artists...</p>";
+  const artistsList = document.getElementById("artistsList");
+  const searchInput = document.getElementById("searchInput").value.toLowerCase();
+  const sortValue = document.getElementById("sortSelect").value;
+
+  artistsList.innerHTML = "<p>Loading artists...</p>";
+  
+  try {
+      const snapshot = await getDocs(collection(db, "artists"));
+      let artistsArray = [];
       
-      try {
-          const snapshot = await getDocs(collection(db, "artists"));
-          artistsList.innerHTML = ""; // Clear loader
-          
-          snapshot.forEach(docSnap => {
-            const artist = docSnap.data();
-            const div = document.createElement("div");
-            div.className = "artist-item";
-            div.innerHTML = `
-              <div class="artist-info">
-                <strong>${artist.name}</strong>
-                <span class="status-badge ${artist.active ? 'active-bg' : 'inactive-bg'}">
-                    ${artist.active ? "Active" : "Inactive"}
-                </span>
-                <div style="font-size: 12px; color: #888;">/${artist.slug}</div>
-              </div>
-              <div class="actions">
-                <button class="btn-edit" onclick="editArtist('${docSnap.id}')">Edit</button>
-                <button class="btn-toggle" onclick="toggleActive('${docSnap.id}')">
-                    ${artist.active ? "Deactivate" : "Activate"}
-                </button>
-                <button class="btn-delete" onclick="deleteArtist('${docSnap.id}')">Delete</button>
-              </div>
-            `;
-            artistsList.appendChild(div);
-          });
-      } catch (err) {
-          artistsList.innerHTML = "Error loading artists: " + err.message;
+      snapshot.forEach(docSnap => {
+        artistsArray.push({ id: docSnap.id, ...docSnap.data() });
+      });
+
+      // --- SEARCH FILTER ---
+      if (searchInput) {
+        artistsArray = artistsArray.filter(artist => 
+          artist.name.toLowerCase().includes(searchInput) ||
+          (artist.category && artist.category.toLowerCase().includes(searchInput))
+        );
       }
-    }
+
+      // --- SORTING ---
+      if (sortValue) {
+        if (sortValue === "date-desc") {
+          artistsArray.sort((a, b) => b.updatedAt?.seconds - a.updatedAt?.seconds);
+        } else if (sortValue === "date-asc") {
+          artistsArray.sort((a, b) => a.updatedAt?.seconds - b.updatedAt?.seconds);
+        } else if (sortValue === "name-asc") {
+          artistsArray.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortValue === "name-desc") {
+          artistsArray.sort((a, b) => b.name.localeCompare(a.name));
+        }
+      }
+
+      // --- DISPLAY ARTISTS ---
+      artistsList.innerHTML = "";
+
+      if (artistsArray.length === 0) {
+        artistsList.innerHTML = "<p>No artists found.</p>";
+        return;
+      }
+
+      artistsArray.forEach(artist => {
+        const div = document.createElement("div");
+        div.className = "artist-item";
+        div.innerHTML = `
+          <div class="artist-info">
+            <strong>${artist.name}</strong>
+            <span class="status-badge ${artist.active ? 'active-bg' : 'inactive-bg'}">
+                ${artist.active ? "Active" : "Inactive"}
+            </span>
+            <div style="font-size: 12px; color: #888;">/${artist.slug}</div>
+          </div>
+          <div class="actions">
+            <button class="btn-edit" onclick="editArtist('${artist.id}')">Edit</button>
+            <button class="btn-toggle" onclick="toggleActive('${artist.id}')">
+                ${artist.active ? "Deactivate" : "Activate"}
+            </button>
+            <button class="btn-delete" onclick="deleteArtist('${artist.id}')">Delete</button>
+          </div>
+        `;
+        artistsList.appendChild(div);
+      });
+  } catch (err) {
+      artistsList.innerHTML = "Error loading artists: " + err.message;
+  }
+}
+
+// Update list when typing in search box
+document.getElementById("searchInput").addEventListener("input", loadArtists);
+
+// Update list when changing sort option
+document.getElementById("sortSelect").addEventListener("change", loadArtists);
+
+
 
     // Add or Update Artist
     saveBtn.addEventListener("click", async () => {

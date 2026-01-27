@@ -124,6 +124,40 @@
   pointer-events: auto;
 }
 
+
+.contact-btn {
+    position: absolute;
+    bottom: 284px; /* moved down 1/2 inch */
+    right: 146px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    background: #004282;
+    padding: 14px 28px;
+    border-radius: 30px;
+    letter-spacing: 0.05em;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.contact-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.85;
+}
+
+
+@media (max-width: 768px) {
+    .contact-btn {
+        bottom: 254px;
+        right: 121px;
+        padding: 12px 22px;
+        font-size: 0.9rem;
+    }
+}
+
+
+
+
 </style>
 </head>
 
@@ -141,6 +175,10 @@
     <a href="Artists.html" class="menu-link">Personal Appearance</a>
     <a href="index.html" class="menu-link indent">Home</a>
   </div>
+
+   <!-- Contact button -->
+    <a href="contact.html" class="contact-btn">Contact</a>
+
 </div>
 
 

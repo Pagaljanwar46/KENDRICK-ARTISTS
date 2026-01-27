@@ -163,6 +163,42 @@ header {
 }
 
 
+
+.contact-btn {
+    position: fixed;
+    bottom: 3cm; /* 4cm → 3cm from bottom moves it 1cm down */
+    right: 48px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    background: #004282;
+    padding: 14px 28px;
+    border-radius: 30px;
+    letter-spacing: 0.05em;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 200;
+}
+
+.contact-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+    .contact-btn {
+        bottom: 25px;  
+        right: 33px;
+        font-size: 0.9rem;
+        padding: 12px 22px;
+    }
+}
+
+
+
+
+
+
 </style>
 </head>
 
@@ -189,6 +225,10 @@ header {
          <a href="index.html" class="menu-link">home</a>
 
       </div>
+
+       <!-- Contact button -->
+    <a href="contact.html" class="contact-btn">Contact</a>
+
 </div>
 
 <style>
