@@ -62,20 +62,27 @@
         }
 
         /* --- UPDATED NAVIGATION: TOP MIDDLE --- */
+       .nav-trigger {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+
         .nav-trigger {
-            position: fixed;
-            top: 30px;
-            left: 50%; /* Centered horizontally */
-            transform: translateX(-50%); /* Offset for exact center */
-            z-index: 100;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
-            mix-blend-mode: difference;
-            text-transform: uppercase; /* Matching Script 2 style */
-            letter-spacing: 0.1em;
-        }
+    color: white;
+}
+
+
+
 
         /* --- MENU OVERLAY (Grid design from Script 1) --- */
         .menu-overlay {
@@ -164,6 +171,18 @@
 }
 
 
+/* Artists button on video */
+.nav-trigger.light {
+    color: white;
+}
+
+/* Artists / Close button on menu */
+.nav-trigger.dark {
+    color: black;
+}
+
+
+
     </style>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
@@ -171,7 +190,8 @@
 
 <body>
 
-    <div class="nav-trigger" onclick="toggleMenu()">Artists</div>
+    <div class="nav-trigger light" onclick="toggleMenu()">Artists</div>
+
 
     <div class="menu-overlay" id="menu">
         <div class="menu-content">
@@ -180,7 +200,7 @@
         </div>
 
          <!-- Contact button -->
-    <a href="#" class="contact-btn">Contact</a>
+    <a href="contact.html" class="contact-btn">Contact</a>
 
     </div>
 
@@ -214,22 +234,27 @@
         </div>
     </div>
 
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById('menu');
-            const trigger = document.querySelector('.nav-trigger');
+   <script>
+function toggleMenu() {
+    const menu = document.getElementById('menu');
+    const trigger = document.querySelector('.nav-trigger');
 
-            menu.classList.toggle('active');
+    menu.classList.toggle('active');
 
-            if (menu.classList.contains('active')) {
-                trigger.textContent = 'Close';
-                trigger.style.color = '#004282';
-            } else {
-                trigger.textContent = 'Artists';
-                trigger.style.color = 'white';
-            }
-        }
-    </script>
+    if (menu.classList.contains('active')) {
+        // Menu is open (white background)
+        trigger.textContent = 'Close';
+        trigger.classList.remove('light');
+        trigger.classList.add('dark');
+    } else {
+        // Menu is closed (video background)
+        trigger.textContent = 'Artists';
+        trigger.classList.remove('dark');
+        trigger.classList.add('light');
+    }
+}
+</script>
+
 
 </body>
 </html>

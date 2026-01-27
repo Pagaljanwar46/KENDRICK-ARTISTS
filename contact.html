@@ -184,7 +184,10 @@
 <body>
 
     <div class="card-container">
-        <a href="#" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back</a>
+
+<a href="javascript:void(0)" class="back-btn" onclick="goBack()">
+    <i class="fa-solid fa-arrow-left"></i> Back
+</a>
 
         <div class="main-grid">
             <div class="left-column">
@@ -268,6 +271,17 @@
             form.reset();
         });
     </script>
+
+    <script>
+    function goBack() {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = "index.html"; // fallback if no history
+        }
+    }
+</script>
+
 
 </body>
 </html>
