@@ -199,27 +199,32 @@
                     <div class="form-row">
                         <div class="input-group">
                             <i class="fa-regular fa-user"></i>
-                            <input type="text" placeholder="First Name" required>
+                           <input type="text" name="first_name" placeholder="First Name" required>
+
                         </div>
                         <div class="input-group">
                             <i class="fa-regular fa-user"></i>
-                            <input type="text" placeholder="Last Name" required>
+                          <input type="text" name="last_name" placeholder="Last Name" required>
+
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="input-group">
                             <i class="fa-solid fa-phone-flip"></i>
-                            <input type="tel" placeholder="Phone No">
+                          <input type="tel" name="phone" placeholder="Phone No">
+
                         </div>
                         <div class="input-group">
                             <i class="fa-regular fa-envelope"></i>
-                            <input type="email" placeholder="Email" required>
+                          <input type="email" name="email" placeholder="Email" required>
+
                         </div>
                     </div>
 
                     <div class="input-group">
-                        <textarea rows="4" placeholder="Your message"></textarea>
+                       <textarea rows="4" name="message" placeholder="Your message"></textarea>
+
                     </div>
 
                 <!----   <div class="checkbox-group">
@@ -257,20 +262,29 @@
         </div>
     </div>
 
-    <script>
-        const form = document.getElementById('energyForm');
+   <script>
+const form = document.getElementById("energyForm");
 
-        form.addEventListener('submit', function(e) {
-            // 1. Prevent the page from actual reloading (so we can see the effect)
-            e.preventDefault();
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
 
-            // 2. Show the classic popup
-            alert("Message sent!");
+  console.log("Submit clicked");
 
-            // 3. Vanish all given details (reset the form)
-            form.reset();
-        });
-    </script>
+  emailjs.sendForm(
+    "YOUR_SERVICE_ID",
+    "YOUR_TEMPLATE_ID",
+    this
+  ).then(function() {
+    alert("Message sent successfully");
+    form.reset();
+  }, function(error) {
+    alert("Failed to send message");
+    console.log(error);
+  });
+});
+</script>
+
+
 
     <script>
     function goBack() {
@@ -281,6 +295,18 @@
         }
     }
 </script>
+
+
+<!-- EmailJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+  emailjs.init("PASTE_YOUR_PUBLIC_KEY_HERE");
+})();
+</script>
+
 
 
 </body>

@@ -6,250 +6,286 @@
 <title>KENDRICK & ARTISTS – Comedy</title>
 
 <style>
-  body {
-    font-family: Helvetica, Arial, sans-serif;
-    margin: 0;
-    background: #fff;
-    color: #003366;
-  }
+    /* --- RESET & FONTS --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    position: sticky;
-    top: 0;
-    background: white;
-    z-index: 1000;
-  }
+    body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background-color: #fff;
+        overflow-x: hidden;
+    }
 
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-  }
+    /* --- UPDATED NAVIGATION TRIGGER POSITION --- */
+    .nav-trigger {
+        position: fixed;
+        top: 30px;
+        right: 40px; /* Moved to the right corner */
+        left: auto;  /* Remove centered left positioning */
+        transform: none; /* Remove centering transform */
+        z-index: 1000;
+        font-weight: bold;
+        font-size: 1.1rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: color 0.3s ease;
+    }
 
-  .nav-trigger {
-    cursor: pointer;
-    font-weight: bold;
-  }
+    .nav-trigger.light { color: #07315a; } 
+    .nav-trigger.dark { color: white; }
 
-  .roster-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    padding: 30px 40px;
-  }
+    /* --- GERSH-STYLE MENU OVERLAY --- */
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #000;
+        z-index: 999;
+        transform: translateY(-100%);
+        transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 10%;
+        overflow: hidden;
+    }
 
-  .artist-card {
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    border: 3px solid transparent;
-    transition: border 0.2s;
-  }
+    .menu-overlay.active { transform: translateY(0); }
 
-  .artist-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+    .menu-bg-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 0.5s ease, background-image 0.4s ease-in-out;
+        z-index: -1;
+    }
 
-  .artist-name {
-    margin-top: 8px;
-    font-size: 13px;
-  }
+    .menu-overlay.active .menu-bg-image { opacity: 0.4; }
 
-  .artist-link {
-    text-decoration: none;
-    color: inherit;
-  }
+    .menu-header-label {
+        color: #fff;
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 40px;
+        font-weight: 700;
+    }
 
-  .artist-link:hover .artist-card {
-    border-color: #003366;
-  }
+    .submenu-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
 
-  @media (max-width: 900px) {
+    .submenu {
+        display: flex;
+        align-items: center;
+        font-size: 3.5rem;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+        line-height: 1.1;
+        transition: opacity 0.3s ease;
+        text-transform: lowercase;
+    }
+
+    .submenu span {
+        font-weight: 300;
+        margin-right: 20px;
+    }
+
+    .submenu:hover { opacity: 0.6; }
+
+    .menu-desc {
+        color: #fff;
+        max-width: 450px;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-top: 50px;
+        opacity: 0.8;
+    }
+
+    .menu-overlay .contact-btn {
+        position: absolute;
+        bottom: 40px;
+        right: 50px;
+        background: #fff;
+        color: #000;
+        padding: 14px 28px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    /* --- ROSTER GRID STYLES --- */
     .roster-grid {
-      grid-template-columns: repeat(2, 1fr);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        padding: 120px 40px 40px 40px;
     }
-  }
 
+    .artist-card {
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border: 3px solid transparent;
+        transition: border 0.2s;
+    }
 
+    .artist-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-  .menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: #fff;
-  z-index: 999;
-  padding: 120px 60px;
-  transform: translateY(-100%);
-  transition: transform 0.5s ease;
-}
+    .artist-name {
+        margin-top: 8px;
+        font-size: 13px;
+        color: #003366;
+        text-transform: uppercase;
+    }
 
-.menu-overlay.active {
-  transform: translateY(0);
-}
+    .artist-link {
+        text-decoration: none;
+        color: inherit;
+    }
 
-.column-title {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 30px;
-}
+    .artist-link:hover .artist-card {
+        border-color: #003366;
+    }
 
-.menu-link {
-  display: block;
-  font-size: 3rem;
-  font-weight: 800;
-  text-decoration: none;
-  color: #003366;
-  margin-bottom: 10px;
-}
+    /* --- RESPONSIVE --- */
+    @media (max-width: 900px) {
+        .roster-grid { grid-template-columns: repeat(2, 1fr); }
+        .submenu { font-size: 2.2rem; }
+        .nav-trigger { right: 20px; top: 20px; }
+    }
 
-.menu-link.indent {
-  padding-left: 40px;
-}
-
-
-
-
-.menu-overlay {
-  pointer-events: none;
-}
-
-.menu-overlay.active {
-  pointer-events: auto;
-}
-
-
-.contact-btn {
-    position: absolute;
-    bottom: 284px; /* moved down 1/2 inch */
-    right: 146px;
-    font-size: 1rem;
+    .page-heading {
+    position: fixed;
+    top: 30px;
+    left: 40px;
+    z-index: 1000;
+    font-size: 24px;
     font-weight: 600;
-    text-decoration: none;
-    color: white;
-    background: #004282;
-    padding: 14px 28px;
-    border-radius: 30px;
-    letter-spacing: 0.05em;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    color: #003366;
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
 }
 
-.contact-btn:hover {
-    transform: translateY(-2px);
-    opacity: 0.85;
-}
-
-
-@media (max-width: 768px) {
-    .contact-btn {
-        bottom: 254px;
-        right: 121px;
-        padding: 12px 22px;
-        font-size: 0.9rem;
+@media (max-width: 900px) {
+    .page-heading {
+        top: 20px;
+        left: 20px;
     }
 }
-
-
-
 
 </style>
+
+
 </head>
 
 <body>
 
-<header>
-  <div class="logo">Comedy</div>
-  <div class="nav-trigger" id="menuBtn" onclick="toggleMenu()">menu</div>
+  <div class="page-heading">Comedy</div>
 
-</header>
+    <div class="nav-trigger light" onclick="toggleMenu()">MENU</div>
 
-<div class="menu-overlay" id="menu">
-  <div class="menu-content">
-    <h3 class="column-title">Talent</h3>
-    <a href="Artists.html" class="menu-link">Personal Appearance</a>
-    <a href="index.html" class="menu-link indent">Home</a>
-  </div>
+    <div class="menu-overlay" id="menu">
+        <div class="menu-bg-image" id="menuBg"></div>
+        <div class="menu-header-label">talent</div>
+        <div class="submenu-list">
+           
+           
+            <a href="Artists.html" class="submenu" data-bg="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=1920">
+                <span>&gt;</span> Personal Appearance
+            </a>
 
-   <!-- Contact button -->
-    <a href="contact.html" class="contact-btn">Contact</a>
+             <a href="comedy.html" class="submenu" data-bg="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1920">
+                <span>&gt;</span> Comedy
+            </a>
 
-</div>
-
-
-<main class="roster-grid" id="comedyGrid">
-</main>
-
-<script>
-  function toggleMenu() {
-    const menu = document.getElementById("menu");
-    const btn = document.getElementById("menuBtn");
-
-    menu.classList.toggle("active");
-    btn.textContent = menu.classList.contains("active") ? "close" : "menu";
-  }
-</script>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-  import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAGbc3hE5qsN8axCsRNaNH4CNSDp3Yave8",
-    authDomain: "kendrick-artists-clarck.firebaseapp.com",
-    projectId: "kendrick-artists-clarck",
-    storageBucket: "kendrick-artists-clarck.firebasestorage.app",
-    messagingSenderId: "695415417830",
-    appId: "1:695415417830:web:f5d196cdf9334f80220427"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  async function loadComedyArtists() {
-    const grid = document.getElementById("comedyGrid");
-    grid.innerHTML = "";
-
-    const q = query(
-      collection(db, "artists"),
-      where("active", "==", true),
-      where("section", "==", "comedy")
-    );
-
-    const snapshot = await getDocs(q);
-
-    snapshot.forEach(docSnap => {
-      const artist = docSnap.data();
-
-      const a = document.createElement("a");
-      a.className = "artist-link";
-      a.href = `profile.html?id=${docSnap.id}&from=comedy`;
-
-
-      a.innerHTML = `
-        <div class="artist-card">
-          <img src="${artist.imageUrl || 'https://via.placeholder.com/500'}">
+             <a href="index.html" class="submenu" data-bg="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=1920">
+                <span>&gt;</span> home
+            </a>
+           <!-- <a href="#" class="submenu" data-bg="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=1920">
+                <span>&gt;</span> broadway concert artists
+            </a>   -->
         </div>
-        <div class="artist-name">${artist.name}</div>
-      `;
+        <div class="menu-desc">
+            The Kendrick Artists Department represents a powerhouse of some of the most diverse and in-demand Artists in the world.
+        </div>
+        <a href="contact.html" class="contact-btn">Contact</a>
+    </div>
 
-      grid.appendChild(a);
-    });
-  }
+    <main class="roster-grid" id="comedyGrid"></main>
 
-  window.addEventListener("DOMContentLoaded", loadComedyArtists);
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            const trigger = document.querySelector('.nav-trigger');
+            menu.classList.toggle('active');
+            if (menu.classList.contains('active')) {
+                trigger.textContent = 'close';
+                trigger.classList.remove('light');
+                trigger.classList.add('dark');
+            } else {
+                trigger.textContent = 'menu';
+                trigger.classList.remove('dark');
+                trigger.classList.add('light');
+            }
+        }
 
+        const submenus = document.querySelectorAll('.submenu');
+        const menuBg = document.getElementById('menuBg');
+        submenus.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const bgUrl = item.getAttribute('data-bg');
+                if (bgUrl) menuBg.style.backgroundImage = `url('${bgUrl}')`;
+            });
+        });
+    </script>
 
-</script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
+        const firebaseConfig = {
+            apiKey: "AIzaSyAGbc3hE5qsN8axCsRNaNH4CNSDp3Yave8",
+            authDomain: "kendrick-artists-clarck.firebaseapp.com",
+            projectId: "kendrick-artists-clarck",
+            storageBucket: "kendrick-artists-clarck.firebasestorage.app",
+            messagingSenderId: "695415417830",
+            appId: "1:695415417830:web:f5d196cdf9334f80220427"
+        };
 
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-
-
+        async function loadComedyArtists() {
+            const grid = document.getElementById("comedyGrid");
+            grid.innerHTML = "";
+            const q = query(collection(db, "artists"), where("active", "==", true), where("section", "==", "comedy"));
+            const snapshot = await getDocs(q);
+            snapshot.forEach(docSnap => {
+                const artist = docSnap.data();
+                const a = document.createElement("a");
+                a.className = "artist-link";
+                a.href = `profile.html?id=${docSnap.id}&from=comedy`;
+                a.innerHTML = `
+                    <div class="artist-card"><img src="${artist.imageUrl || 'https://via.placeholder.com/500'}"></div>
+                    <div class="artist-name">${artist.name}</div>`;
+                grid.appendChild(a);
+            });
+        }
+        window.addEventListener("DOMContentLoaded", loadComedyArtists);
+    </script>
 </body>
 </html>

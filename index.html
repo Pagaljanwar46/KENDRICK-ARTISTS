@@ -6,16 +6,12 @@
     <title>KENDRICK & ARTISTS</title>
 
     <style>
-        /* --- RESET & FONTS (Copied from Script 1) --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* --- RESET & FONTS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #000;
             overflow-x: hidden;
         }
 
@@ -25,7 +21,7 @@
             width: 100%;
             height: 100vh;
             overflow: hidden;
-            background-color: #003b73; /* Style from Script 1 */
+            background-color: #003b73; 
         }
 
         .bg-video {
@@ -48,160 +44,255 @@
             z-index: 2;
         }
 
-        svg {
-            width: 100%;
-            height: 100%;
-            fill: #07315a; /* Style from Script 1 */
-        }
+        svg { width: 100%; height: 100%; fill: #07315a; }
 
-        text {
-            font-weight: 900;
-            font-family: 'Arial Black', sans-serif;
-            text-anchor: middle;
-            dominant-baseline: middle;
-        }
-
-        /* --- UPDATED NAVIGATION: TOP MIDDLE --- */
-       .nav-trigger {
-    position: fixed;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-    color: white;
-    font-weight: bold;
-    font-size: 1.2rem;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-
+        /* --- NAVIGATION TRIGGER --- */
         .nav-trigger {
-    color: white;
-}
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-transform: lowercase;
+            transition: color 0.3s ease;
+        }
 
+        .nav-trigger.light { color: white; }
+        .nav-trigger.dark { color: white; left: auto; right: 60px; transform: none; }
 
-
-
-        /* --- MENU OVERLAY (Grid design from Script 1) --- */
+        /* --- GERSH-STYLE MENU OVERLAY --- */
         .menu-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            background: white;
-            z-index: 99;
+            background: #000;
+            z-index: 999;
             transform: translateY(-100%);
-            transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+            transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            padding: 50px;
+            padding-left: 10%;
+            overflow: hidden;
         }
 
-        .menu-overlay.active {
-            transform: translateY(0);
+        .menu-overlay.active { transform: translateY(0); }
+
+        /* Background Image Layer for Menu */
+        .menu-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.5s ease, background-image 0.4s ease-in-out;
+            z-index: -1;
         }
 
-        .menu-content {
-            width: 80%;
-            max-width: 1200px;
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Grid from Script 1 */
-            gap: 2rem 5rem;
+        .menu-overlay.active .menu-bg-image { opacity: 0.4; }
+
+        .menu-header-label {
+            color: #fff;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .submenu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .submenu {
-            font-size: 3vw;
-            color: #004282;
+            display: flex;
+            align-items: center;
+            font-size: 3.5rem;
+            color: #fff;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 700;
             line-height: 1.1;
+            transition: opacity 0.3s ease;
+            text-transform: lowercase;
         }
 
-        .submenu:hover {
-            opacity: 0.7;
+        .submenu span {
+            font-weight: 300;
+            margin-right: 20px;
         }
 
-        /* --- MOBILE --- */
+        .submenu:hover { opacity: 0.6; }
+
+        .menu-desc {
+            color: #fff;
+            max-width: 450px;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 50px;
+            opacity: 0.8;
+        }
+
+        /* Contact button in Menu */
+        .menu-overlay .contact-btn {
+            position: absolute;
+            bottom: 40px;
+            right: 50px;
+            background: #fff;
+            color: #000;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .bottom-text {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            color: white;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
         @media (max-width: 768px) {
-            text { font-size: 35vw; }
-            .menu-content { grid-template-columns: 1fr; }
-            .submenu { font-size: 2rem; }
+            .submenu { font-size: 2.2rem; }
+            .nav-trigger.dark { right: 30px; }
         }
 
-        /* Swirl Image logic kept from your 2nd Script */
-        @media (min-width: 1024px) {
-            svg image {
-                width: 220%;
-                height: 220%;
-                transform: translate(-110%, -110%);
-            }
-        }
 
-        .contact-btn {
-    position: absolute;
-    bottom: 40px;
-    right: 50px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    color: white;
-    background: #004282;
-    padding: 14px 28px;
-    border-radius: 30px;
-    letter-spacing: 0.05em;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.contact-btn:hover {
-    transform: translateY(-2px);
-    opacity: 0.85;
-}
-
+        /* HIDE SWIRL IMAGE ON MOBILE */
 @media (max-width: 768px) {
-    .contact-btn {
-        bottom: 25px;
-        right: 25px;
-        padding: 12px 22px;
-        font-size: 0.9rem;
+    .swirl-img {
+        display: none;
     }
 }
 
 
-/* Artists button on video */
+
+
+/* RESPONSIVE HERO TEXT */
+@media (max-width: 1200px) {
+    svg text {
+        font-size: 140px;
+        letter-spacing: 6px;
+    }
+}
+
+@media (max-width: 768px) {
+    svg text {
+        font-size: 90px;
+        letter-spacing: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    svg text {
+        font-size: 60px;
+        letter-spacing: 2px;
+    }
+}
+
+
+
+/* MENU RESPONSIVE */
+@media (max-width: 768px) {
+    .menu-overlay {
+        padding-left: 8%;
+    }
+
+    .submenu {
+        font-size: 2rem; /* smaller font */
+    }
+
+    .menu-desc {
+        font-size: 13px;
+        margin-top: 30px;
+    }
+
+    .menu-overlay .contact-btn {
+        right: 20px;
+        bottom: 20px;
+        padding: 12px 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .submenu {
+        font-size: 1.6rem;
+    }
+
+    .menu-header-label {
+        margin-bottom: 25px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .bottom-text {
+        font-size: 0.75rem;
+        text-align: center;
+        padding: 0 15px;
+    }
+}
+
+
 .nav-trigger.light {
-    color: white;
+    text-transform: uppercase;
 }
 
-/* Artists / Close button on menu */
-.nav-trigger.dark {
-    color: black;
+.nav-trigger {
+    text-transform: uppercase;  /* make letters capital */
+    letter-spacing: 2px;         /* space between letters */
 }
-
 
 
     </style>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="nav-trigger light" onclick="toggleMenu()">Artists</div>
-
+    <div class="nav-trigger light" onclick="toggleMenu()">ARTISTS</div>
 
     <div class="menu-overlay" id="menu">
-        <div class="menu-content">
-            <a href="comedy.html" class="submenu">Comedy</a>
-            <a href="Artists.html" class="submenu">Personal Appearance</a>
+        <div class="menu-bg-image" id="menuBg"></div>
+        
+        <div class="menu-header-label">talent</div>
+
+        <div class="submenu-list">
+
+            <a href="Artists.html" class="submenu" data-bg="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=1920">
+                <span>&gt;</span> Personal Appearance
+            </a>
+            <a href="comedy.html" class="submenu" data-bg="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1920">
+                <span>&gt;</span> Comedy
+            </a>
+            
+          <!--  <a href="#" class="submenu" data-bg="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=1920">
+                <span>&gt;</span> broadway concert artists
+            </a>
+            <a href="#" class="submenu" data-bg="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1920">
+                <span>&gt;</span> speakers
+            </a>    -->
         </div>
 
-         <!-- Contact button -->
-    <a href="contact.html" class="contact-btn">Contact</a>
+        <div class="menu-desc">
+            The Kendrick Artists Department represents a powerhouse of some of the most diverse and in-demand Artists in the world, whose work ranges from Stand-Up Comedy to Live Music.
+        </div>
 
+        <a href="contact.html" class="contact-btn">Contact</a>
     </div>
 
     <div class="hero-container">
@@ -214,47 +305,66 @@
                 <defs>
                     <mask id="text-mask">
                         <rect width="100%" height="100%" fill="white"/>
-                        <text x="50%" y="50%" dy=".3em"
-                              style="font-family:'Dubai','Segoe UI',sans-serif;
-                              font-weight:800;font-size:14vw;letter-spacing:-0.02em;">
-                            KENDRICK ARTISTS
-                        </text>
+                        <text x="960" y="540"
+      text-anchor="middle"
+      dominant-baseline="middle"
+      style="font-family:'Dubai','Segoe UI',sans-serif;
+      font-weight:800;font-size:180px;letter-spacing:8px;">KENDRICK ARTISTS</text>
+
                     </mask>
                 </defs>
-
                 <g mask="url(#text-mask)">
-                    <rect width="100%" height="100%"/>
-                    <image href="Assects/swirl.png"
-                           x="50%" y="50%"
-                           width="180%" height="180%"
-                           transform="translate(-90%,-90%)"
-                           preserveAspectRatio="xMidYMid meet"/>
+                    <rect width="100%" height="100%" fill="#07315a"/>
+              <image href="Assects/swirl.png"
+       class="swirl-img"
+       x="-240" y="-735"
+       width="2400" height="2400"
+       opacity="0.85"
+       preserveAspectRatio="xMidYMid meet"/>
+
+
+
+
+
+
+
                 </g>
             </svg>
         </div>
+
+        <div class="bottom-text">AN ENTERTAINMENT COMPANY</div>
     </div>
 
-   <script>
-function toggleMenu() {
-    const menu = document.getElementById('menu');
-    const trigger = document.querySelector('.nav-trigger');
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            const trigger = document.querySelector('.nav-trigger');
 
-    menu.classList.toggle('active');
+            menu.classList.toggle('active');
 
-    if (menu.classList.contains('active')) {
-        // Menu is open (white background)
-        trigger.textContent = 'Close';
-        trigger.classList.remove('light');
-        trigger.classList.add('dark');
-    } else {
-        // Menu is closed (video background)
-        trigger.textContent = 'Artists';
-        trigger.classList.remove('dark');
-        trigger.classList.add('light');
-    }
-}
-</script>
+            if (menu.classList.contains('active')) {
+                trigger.textContent = 'close';
+                trigger.classList.remove('light');
+                trigger.classList.add('dark');
+            } else {
+                trigger.textContent = 'artists';
+                trigger.classList.remove('dark');
+                trigger.classList.add('light');
+            }
+        }
 
+        // --- HOVER BACKGROUND LOGIC ---
+        const submenus = document.querySelectorAll('.submenu');
+        const menuBg = document.getElementById('menuBg');
 
+        submenus.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const bgUrl = item.getAttribute('data-bg');
+                if (bgUrl) {
+                    menuBg.style.backgroundImage = `url('${bgUrl}')`;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

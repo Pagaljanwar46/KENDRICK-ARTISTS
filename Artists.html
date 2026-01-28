@@ -3,58 +3,173 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KENDRICK & ARTISTS - Artists</title>
+<title>KENDRICK & ARTISTS – Personal Appearance</title>
 
 <style>
+/* ================= RESET ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  margin: 0;
   background: #fff;
-  color: #003366;
+  overflow-x: hidden;
 }
 
+/* ================= HEADER ================= */
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  position: fixed;
+  top: 0;
+  width: 100%;
   padding: 20px 40px;
   background: white;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.header-left h1,
-.header-left h2 {
-  font-size: 14px;
-  margin: 0;
-  text-transform: lowercase;
+  border-bottom: 1px solid #f0f0f0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
-  font-size: 28px;
-  font-weight: bold;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.header-right {
-  text-align: right;
-}
-
-.nav-trigger {
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
+  font-size: 24px;
+  font-weight: 600;
+  color: #003366;
   text-transform: lowercase;
+  letter-spacing: 0.5px;
 }
 
+
+/* ================= MENU BUTTON ================= */
+.nav-trigger {
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: #003366;
+  z-index: 1002;
+}
+
+.nav-trigger.active {
+  position: fixed;
+  top: 20px;
+  right: 40px;
+  color: white;
+}
+
+/* ================= MENU OVERLAY ================= */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: black;
+  z-index: 1001;
+  transform: translateY(-100%);
+  transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10%;
+}
+
+.menu-overlay.active {
+  transform: translateY(0);
+}
+
+/* ================= BACK BUTTON ================= */
+.menu-back {
+  position: fixed;
+  top: calc(20px + 1cm); /* moved down by 1cm */
+  right: 40px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: white;
+  cursor: pointer;
+  z-index: 1003;
+  display: none;
+}
+
+
+.menu-overlay.active .menu-back {
+  display: block;
+}
+
+/* ================= MENU CONTENT ================= */
+.menu-header-label {
+  color: white;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  font-weight: 700;
+}
+
+.submenu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.submenu {
+  font-size: 3.5rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.submenu:hover { opacity: 0.6; }
+
+.menu-desc {
+  color: white;
+  max-width: 450px;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 50px;
+  opacity: 0.8;
+}
+
+.contact-btn {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background: white;
+  color: black;
+  padding: 14px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* ================= GRID ================= */
 .roster-grid {
+  padding: 120px 40px 40px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  padding: 20px 40px;
+}
+
+.artist-card {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 4px solid transparent;
+  transition: border 0.2s ease;
+}
+
+.artist-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.artist-name {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #003366;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .artist-link {
@@ -62,142 +177,31 @@ header {
   color: inherit;
 }
 
-.artist-card {
-  border: 4px solid transparent;
-  transition: border 0.2s ease;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-}
-
-
 .artist-link:hover .artist-card {
   border-color: #003366;
 }
 
-.artist-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .roster-grid { grid-template-columns: repeat(2, 1fr); }
+  .submenu { font-size: 2.2rem; }
+  .nav-trigger.active,
+  .menu-back { right: 20px; }
 }
 
-
-.artist-name {
-  margin-top: 10px;
-  font-size: 13px;
+.menu-bg-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.5s ease, background-image 0.4s ease;
+  z-index: -1;
 }
 
-@media (max-width: 1000px) {
-  .roster-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.menu-overlay.active .menu-bg-image {
+  opacity: 0.4;
 }
-
-/* --- UPDATED MENU DESIGN --- */
-.menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: #ffffff; /* Classic clean white */
-    z-index: 99;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translateY(-100%);
-    transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
-}
-
-.menu-overlay.active {
-    transform: translateY(0);
-}
-
-.menu-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 Column classic layout */
-    gap: 80px;
-    width: 80%;
-    max-width: 1100px;
-}
-
-.column-title {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    color: #888;
-    margin-bottom: 30px;
-    font-weight: 600;
-}
-
-.menu-link {
-    display: block;
-    font-family: 'Inter', sans-serif;
-    font-size: 2.2rem; /* Large, bold classic heading style */
-    font-weight: 700;
-    color: #004282;
-    text-decoration: none;
-    margin-bottom: 15px;
-    line-height: 1.1;
-    transition: all 0.3s ease;
-}
-
-.menu-link:hover {
-    color: #000;
-    transform: translateX(10px); /* Subtle movement on hover */
-}
-
-/* Responsive for Mobile */
-@media (max-width: 768px) {
-    .menu-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-    }
-    .menu-link {
-        font-size: 1.8rem;
-    }
-    .menu-link:hover {
-        transform: none;
-    }
-}
-
-
-
-.contact-btn {
-    position: fixed;
-    bottom: 3cm; /* 4cm → 3cm from bottom moves it 1cm down */
-    right: 48px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    color: white;
-    background: #004282;
-    padding: 14px 28px;
-    border-radius: 30px;
-    letter-spacing: 0.05em;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    z-index: 200;
-}
-
-.contact-btn:hover {
-    transform: translateY(-2px);
-    opacity: 0.85;
-}
-
-@media (max-width: 768px) {
-    .contact-btn {
-        bottom: 25px;  
-        right: 33px;
-        font-size: 0.9rem;
-        padding: 12px 22px;
-    }
-}
-
-
-
-
-
 
 </style>
 </head>
@@ -205,84 +209,86 @@ header {
 <body>
 
 <header>
-  <div class="header-left">
-    <h1>Personal Appearance</h1>
-    <h2></h2>
-  </div>
-
- 
-
-<div class="header-right">
-  <div class="nav-trigger" onclick="toggleMenu()">menu</div>
-  
- <div class="menu-overlay" id="menu">
-  <div class="menu-content">
-    <div class="menu-grid">
-      <div class="menu-column">
-        <h3 class="column-title">Talent</h3>
-        
-        <a href="comedy.html" class="menu-link">Comedy</a>
-         <a href="index.html" class="menu-link">home</a>
-
-      </div>
-
-       <!-- Contact button -->
-    <a href="contact.html" class="contact-btn">Contact</a>
-
-</div>
-
-<style>
-.menu-overlay {
-  display: none;
-  position: fixed;
-  top: 60px;
-  right: 40px;
-  background: white;
-  border: 1px solid #ddd;
-  padding: 20px;
-  z-index: 99;
-}
-
-.menu-overlay.active {
-  display: block;
-}
-
-.submenu {
-  text-decoration: none;
-  color: #003366;
-  font-size: 14px;
-}
-
-.submenu:hover {
-  text-decoration: underline;
-}
-</style>
-
-<script>
-function toggleMenu() {
-  document.getElementById("menu").classList.toggle("active");
-}
-</script>
-    
-  </div>
+  <div class="logo">Personal Appearance</div>
+  <div class="nav-trigger" id="menuBtn" onclick="toggleMenu()">menu</div>
 </header>
 
-<main class="roster-grid" id="rosterGrid">
-  <!-- Artists from Firebase -->
-</main>
+<!-- ================= MENU ================= -->
+<div class="menu-overlay" id="menu">
+    <div class="menu-bg-image" id="menuBg"></div>
 
+  <div class="menu-back" onclick="toggleMenu()">back</div>
+
+  <div class="menu-header-label">talent</div>
+
+  <div class="submenu-list">
+
+   <a href="Artists.html" class="submenu"
+   data-bg="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf">
+   <span>&gt;</span> personal appearance
+</a>
+
+
+
+<a href="comedy.html" class="submenu"
+   data-bg="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1920">
+   <span>&gt;</span> comedy
+</a>
+
+<a href="index.html" class="submenu"
+   data-bg="https://images.unsplash.com/photo-1493225255756-d9584f8606e9">
+   <span>&gt;</span> home
+</a>
+
+    
+  </div>
+
+  <div class="menu-desc">
+    The Kendrick Artists Department represents a powerhouse of some of the most diverse and in-demand Artists in the world.
+  </div>
+
+  <a href="contact.html" class="contact-btn">Contact</a>
+</div>
+
+<main class="roster-grid" id="rosterGrid"></main>
+
+<!-- ================= MENU SCRIPT ================= -->
+<script>
+function toggleMenu() {
+  const menu = document.getElementById('menu');
+  const btn = document.getElementById('menuBtn');
+
+  menu.classList.toggle('active');
+
+  if (menu.classList.contains('active')) {
+    btn.textContent = 'close';
+    btn.classList.add('active');
+  } else {
+    btn.textContent = 'menu';
+    btn.classList.remove('active');
+  }
+}
+</script>
+
+<script>
+const submenus = document.querySelectorAll('.submenu');
+const menuBg = document.getElementById('menuBg');
+
+submenus.forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    const bgUrl = item.getAttribute('data-bg');
+    if (bgUrl) {
+      menuBg.style.backgroundImage = `url('${bgUrl}')`;
+    }
+  });
+});
+</script>
+
+
+<!-- ================= FIREBASE ================= -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  query,
-  where,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
-
+import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAGbc3hE5qsN8axCsRNaNH4CNSDp3Yave8",
@@ -298,32 +304,25 @@ const db = getFirestore(app);
 
 async function loadArtists() {
   const grid = document.getElementById("rosterGrid");
-  grid.innerHTML = "";
-
   const q = query(
-  collection(db, "artists"),
-  where("active", "==", true),
-  where("section", "==", "personal")
-);
+    collection(db, "artists"),
+    where("active", "==", true),
+    where("section", "==", "personal")
+  );
 
-const snapshot = await getDocs(q);
+  const snapshot = await getDocs(q);
 
   snapshot.forEach(docSnap => {
     const artist = docSnap.data();
-    if (!artist.active) return;
-
     const a = document.createElement("a");
     a.className = "artist-link";
-   a.href = `profile.html?id=${docSnap.id}&from=personal`;
-
-
+    a.href = `profile.html?id=${docSnap.id}&from=personal`;
     a.innerHTML = `
       <div class="artist-card">
         <img src="${artist.imageUrl || 'https://via.placeholder.com/500'}">
       </div>
       <div class="artist-name">${artist.name}</div>
     `;
-
     grid.appendChild(a);
   });
 }
