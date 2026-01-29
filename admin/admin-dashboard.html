@@ -6,20 +6,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard | Artist Management</title>
-  <style>
+<style>
     /* Modern Reset & Base Styles */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { 
-        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-        background-color: #f4f7f9; 
-        color: #333; 
+        font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+        background-color: #f9fafb; 
+        color: #1e1e2f; 
         line-height: 1.6;
         padding: 0;
     }
 
     /* Layout Container */
     .container {
-        max-width: 1000px;
+        max-width: 1100px;
         margin: 40px auto;
         padding: 0 20px;
     }
@@ -30,40 +30,66 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 30px;
-        border-bottom: 2px solid #3498db;
         padding-bottom: 10px;
+        border-bottom: 2px solid #4f46e5;
     }
     
-    .header h1 { color: #2c3e50; font-size: 24px; }
+    .header h1 { 
+        color: #1e1e2f; 
+        font-size: 26px; 
+        font-weight: 600; 
+    }
+
+    .btn-logout { 
+        background: #9ca3af; 
+        color: white; 
+        font-size: 13px;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .btn-logout:hover { opacity: 0.9; }
 
     /* Form Card Styling */
     .card {
-        background: #fff;
-        padding: 25px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        background: #ffffff;
+        padding: 30px 25px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         margin-bottom: 40px;
     }
 
-    .card h2 { margin-bottom: 20px; font-size: 18px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+    .card h2 { 
+        margin-bottom: 25px; 
+        font-size: 20px; 
+        color: #374151; 
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+    }
 
+    /* Form Grid */
     .form-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 15px;
+        gap: 18px;
     }
 
-    input, textarea {
+    input, textarea, select {
         width: 100%;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 14px;
+        padding: 14px;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        font-size: 15px;
         outline: none;
-        transition: border-color 0.2s;
+        transition: all 0.2s ease;
+        background-color: #fefefe;
     }
 
-    input:focus, textarea:focus { border-color: #3498db; }
+    input:focus, textarea:focus, select:focus { 
+        border-color: #4f46e5; 
+        box-shadow: 0 0 0 2px rgba(79,70,229,0.1);
+    }
 
     textarea { grid-column: span 2; height: 100px; resize: vertical; }
 
@@ -71,7 +97,7 @@
         grid-column: span 2;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         margin: 5px 0;
     }
 
@@ -80,60 +106,61 @@
     /* Buttons */
     button {
         cursor: pointer;
-        padding: 10px 18px;
+        padding: 12px 20px;
         border: none;
-        border-radius: 4px;
+        border-radius: 8px;
         font-weight: 600;
         transition: all 0.2s ease;
     }
 
     #saveBtn {
-        background-color: #27ae60;
+        background-color: #4f46e5;
         color: white;
         width: 100%;
         font-size: 16px;
-        margin-top: 10px;
+        margin-top: 12px;
     }
 
-    #saveBtn:hover { background-color: #219150; transform: translateY(-1px); }
-    
-    .btn-logout { background: #95a5a6; color: white; font-size: 12px; }
+    #saveBtn:hover { 
+        background-color: #4338ca; 
+        transform: translateY(-2px); 
+    }
 
     /* Artist List Styling */
     .artist-item {
-        background: #fff;
+        background: #ffffff;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 20px;
-        margin-bottom: 12px;
-        border-radius: 6px;
-        border-left: 5px solid #3498db;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        padding: 18px 22px;
+        margin-bottom: 14px;
+        border-radius: 10px;
+        border-left: 5px solid #4f46e5;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     }
 
     .artist-info { flex-grow: 1; }
-    .artist-info strong { font-size: 1.1em; color: #2c3e50; }
+    .artist-info strong { font-size: 1.1em; color: #1e1e2f; }
 
     .status-badge {
-        font-size: 11px;
-        padding: 3px 10px;
+        font-size: 12px;
+        padding: 4px 12px;
         border-radius: 20px;
         margin-left: 10px;
-        font-weight: bold;
+        font-weight: 700;
         text-transform: uppercase;
     }
 
-    .active-bg { background: #e8f5e9; color: #2e7d32; }
-    .inactive-bg { background: #ffebee; color: #c62828; }
+    .active-bg { background: #d1fae5; color: #047857; }
+    .inactive-bg { background: #fee2e2; color: #b91c1c; }
 
     /* Action Buttons */
-    .actions { display: flex; gap: 8px; }
-    .btn-edit { background: #3498db; color: white; }
-    .btn-delete { background: #e74c3c; color: white; }
-    .btn-toggle { background: #f39c12; color: white; }
+    .actions { display: flex; gap: 10px; }
+    .btn-edit { background: #4f46e5; color: white; }
+    .btn-delete { background: #ef4444; color: white; }
+    .btn-toggle { background: #f59e0b; color: white; }
 
-    button:hover { opacity: 0.9; }
+    button:hover { opacity: 0.95; transform: translateY(-1px); }
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
@@ -142,7 +169,16 @@
         .artist-item { flex-direction: column; align-items: flex-start; }
         .actions { margin-top: 15px; width: 100%; justify-content: flex-start; }
     }
-  </style>
+
+    /* Search & Sort Controls */
+    #searchInput, #sortSelect {
+        padding: 10px 14px;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+        font-size: 14px;
+    }
+</style>
+
 </head>
 <body>
 
@@ -158,11 +194,14 @@
             <input id="name" placeholder="Artist Name">
             <input id="slug" placeholder="URL Slug (e.g. kendrick-lamar)">
             <input id="category" placeholder="Category (e.g. West Coast)">
+           
             <select id="section">
   <option value="">Select Section</option>
   <option value="personal">Personal Appearance</option>
   <option value="comedy">Comedy</option>
+  <option value="both">Both (Comedy + Personal)</option>
 </select>
+
 
             <input id="imageUrl" placeholder="Image URL">
             <textarea id="bio" placeholder="Artist Biography"></textarea>
@@ -198,7 +237,11 @@
   </select>
 </div>
 
-<div id="artistsList"></div>
+<h3 style="margin-top:30px;">Personal Appearance</h3>
+<div id="personalArtists"></div>
+
+<h3 style="margin-top:40px;">Comedy</h3>
+<div id="comedyArtists"></div>
 
 
   <script type="module">
@@ -235,72 +278,94 @@
     let currentEditId = null;
 
     async function loadArtists() {
-  const artistsList = document.getElementById("artistsList");
+  const personalContainer = document.getElementById("personalArtists");
+  const comedyContainer = document.getElementById("comedyArtists");
+
   const searchInput = document.getElementById("searchInput").value.toLowerCase();
   const sortValue = document.getElementById("sortSelect").value;
 
-  artistsList.innerHTML = "<p>Loading artists...</p>";
-  
+  personalContainer.innerHTML = "<p>Loading...</p>";
+  comedyContainer.innerHTML = "<p>Loading...</p>";
+
   try {
-      const snapshot = await getDocs(collection(db, "artists"));
-      let artistsArray = [];
-      
-      snapshot.forEach(docSnap => {
-        artistsArray.push({ id: docSnap.id, ...docSnap.data() });
-      });
+    const snapshot = await getDocs(collection(db, "artists"));
+    let artistsArray = [];
 
-      // --- SEARCH FILTER ---
-      if (searchInput) {
-        artistsArray = artistsArray.filter(artist => 
-          artist.name.toLowerCase().includes(searchInput) ||
-          (artist.category && artist.category.toLowerCase().includes(searchInput))
-        );
+    snapshot.forEach(docSnap => {
+      artistsArray.push({ id: docSnap.id, ...docSnap.data() });
+    });
+
+    // --- SEARCH ---
+    if (searchInput) {
+      artistsArray = artistsArray.filter(artist =>
+        artist.name.toLowerCase().includes(searchInput) ||
+        (artist.category && artist.category.toLowerCase().includes(searchInput))
+      );
+    }
+
+    // --- SORT ---
+    if (sortValue) {
+      if (sortValue === "date-desc") {
+        artistsArray.sort((a, b) => b.updatedAt?.seconds - a.updatedAt?.seconds);
+      } else if (sortValue === "date-asc") {
+        artistsArray.sort((a, b) => a.updatedAt?.seconds - b.updatedAt?.seconds);
+      } else if (sortValue === "name-asc") {
+        artistsArray.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (sortValue === "name-desc") {
+        artistsArray.sort((a, b) => b.name.localeCompare(a.name));
+      }
+    }
+
+    personalContainer.innerHTML = "";
+    comedyContainer.innerHTML = "";
+
+    let personalCount = 0;
+    let comedyCount = 0;
+
+    artistsArray.forEach(artist => {
+      const div = document.createElement("div");
+      div.className = "artist-item";
+      div.innerHTML = `
+        <div class="artist-info">
+          <strong>${artist.name}</strong>
+          <span class="status-badge ${artist.active ? 'active-bg' : 'inactive-bg'}">
+            ${artist.active ? "Active" : "Inactive"}
+          </span>
+          <div style="font-size:12px;color:#888;">/${artist.slug}</div>
+        </div>
+        <div class="actions">
+          <button class="btn-edit" onclick="editArtist('${artist.id}')">Edit</button>
+          <button class="btn-toggle" onclick="toggleActive('${artist.id}')">
+            ${artist.active ? "Deactivate" : "Activate"}
+          </button>
+          <button class="btn-delete" onclick="deleteArtist('${artist.id}')">Delete</button>
+        </div>
+      `;
+
+      // PERSONAL APPEARANCE
+      if (artist.section === "personal" || artist.section === "both") {
+        personalContainer.appendChild(div.cloneNode(true));
+        personalCount++;
       }
 
-      // --- SORTING ---
-      if (sortValue) {
-        if (sortValue === "date-desc") {
-          artistsArray.sort((a, b) => b.updatedAt?.seconds - a.updatedAt?.seconds);
-        } else if (sortValue === "date-asc") {
-          artistsArray.sort((a, b) => a.updatedAt?.seconds - b.updatedAt?.seconds);
-        } else if (sortValue === "name-asc") {
-          artistsArray.sort((a, b) => a.name.localeCompare(b.name));
-        } else if (sortValue === "name-desc") {
-          artistsArray.sort((a, b) => b.name.localeCompare(a.name));
-        }
+      // COMEDY
+      if (artist.section === "comedy" || artist.section === "both") {
+        comedyContainer.appendChild(div.cloneNode(true));
+        comedyCount++;
       }
+    });
 
-      // --- DISPLAY ARTISTS ---
-      artistsList.innerHTML = "";
+    if (personalCount === 0) {
+      personalContainer.innerHTML = "<p>No Personal Appearance artists.</p>";
+    }
 
-      if (artistsArray.length === 0) {
-        artistsList.innerHTML = "<p>No artists found.</p>";
-        return;
-      }
+    if (comedyCount === 0) {
+      comedyContainer.innerHTML = "<p>No Comedy artists.</p>";
+    }
 
-      artistsArray.forEach(artist => {
-        const div = document.createElement("div");
-        div.className = "artist-item";
-        div.innerHTML = `
-          <div class="artist-info">
-            <strong>${artist.name}</strong>
-            <span class="status-badge ${artist.active ? 'active-bg' : 'inactive-bg'}">
-                ${artist.active ? "Active" : "Inactive"}
-            </span>
-            <div style="font-size: 12px; color: #888;">/${artist.slug}</div>
-          </div>
-          <div class="actions">
-            <button class="btn-edit" onclick="editArtist('${artist.id}')">Edit</button>
-            <button class="btn-toggle" onclick="toggleActive('${artist.id}')">
-                ${artist.active ? "Deactivate" : "Activate"}
-            </button>
-            <button class="btn-delete" onclick="deleteArtist('${artist.id}')">Delete</button>
-          </div>
-        `;
-        artistsList.appendChild(div);
-      });
   } catch (err) {
-      artistsList.innerHTML = "Error loading artists: " + err.message;
+    personalContainer.innerHTML = "Error loading artists";
+    comedyContainer.innerHTML = "Error loading artists";
   }
 }
 

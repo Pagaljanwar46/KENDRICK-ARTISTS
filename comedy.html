@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KENDRICK & ARTISTS – Comedy</title>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 <style>
     /* --- RESET & FONTS --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -19,9 +21,9 @@
     .nav-trigger {
         position: fixed;
         top: 30px;
-        right: 40px; /* Moved to the right corner */
-        left: auto;  /* Remove centered left positioning */
-        transform: none; /* Remove centering transform */
+        right: 40px; 
+        left: auto;  
+        transform: none; 
         z-index: 1000;
         font-weight: bold;
         font-size: 1.1rem;
@@ -112,6 +114,7 @@
         opacity: 0.8;
     }
 
+    /* --- CONTACT & SOCIAL BAR --- */
     .menu-overlay .contact-btn {
         position: absolute;
         bottom: 40px;
@@ -122,6 +125,30 @@
         border-radius: 30px;
         text-decoration: none;
         font-weight: 600;
+        z-index: 1001;
+    }
+
+    .social-icons-wrapper {
+        position: absolute;
+        bottom: 52px; 
+        right: 200px; 
+        display: flex;
+        gap: 25px;
+        align-items: center;
+        z-index: 1001;
+    }
+
+    .social-link {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
+        opacity: 0.6;
+        transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+        opacity: 1;
+        transform: translateY(-2px);
     }
 
     /* --- ROSTER GRID STYLES --- */
@@ -146,11 +173,12 @@
     }
 
     .artist-name {
-        margin-top: 8px;
-        font-size: 13px;
-        color: #003366;
-        text-transform: uppercase;
-    }
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
 
     .artist-link {
         text-decoration: none;
@@ -166,35 +194,57 @@
         .roster-grid { grid-template-columns: repeat(2, 1fr); }
         .submenu { font-size: 2.2rem; }
         .nav-trigger { right: 20px; top: 20px; }
+        
+        .social-icons-wrapper {
+            right: auto;
+            left: 10%;
+            bottom: 110px;
+        }
     }
 
     .page-heading {
-    position: fixed;
-    top: 30px;
-    left: 40px;
-    z-index: 1000;
-    font-size: 24px;
-    font-weight: 600;
-    color: #003366;
-    text-transform: lowercase;
-    letter-spacing: 0.5px;
+        position: fixed;
+        top: 30px;
+        left: 40px;
+        z-index: 1000;
+        font-size: 24px;
+        font-weight: 600;
+        color: #003366;
+        text-transform: lowercase;
+        letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 900px) {
+        .page-heading {
+            top: 20px;
+            left: 20px;
+        }
+    }
+
+
+
+    .comedy-page .artist-name {
+  color: #000;
+  text-transform: none;
+  font-size: 16px;
+  font-weight: 700;
 }
 
-@media (max-width: 900px) {
-    .page-heading {
-        top: 20px;
-        left: 20px;
-    }
+.comedy-page .artist-name {
+  letter-spacing: 0.03em;
+}
+
+.artist-link:hover .artist-name {
+  opacity: 0.7;
 }
 
 </style>
 
-
 </head>
 
-<body>
+<body class="comedy-page">
 
-  <div class="page-heading">Comedy</div>
+    <div class="page-heading">Comedy</div>
 
     <div class="nav-trigger light" onclick="toggleMenu()">MENU</div>
 
@@ -202,26 +252,29 @@
         <div class="menu-bg-image" id="menuBg"></div>
         <div class="menu-header-label">talent</div>
         <div class="submenu-list">
-           
-           
             <a href="Artists.html" class="submenu" data-bg="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=1920">
                 <span>&gt;</span> Personal Appearance
             </a>
-
-             <a href="comedy.html" class="submenu" data-bg="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1920">
+            <a href="comedy.html" class="submenu" data-bg="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1920">
                 <span>&gt;</span> Comedy
             </a>
-
-             <a href="index.html" class="submenu" data-bg="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=1920">
+            <a href="index.html" class="submenu" data-bg="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=1920">
                 <span>&gt;</span> home
             </a>
-           <!-- <a href="#" class="submenu" data-bg="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=1920">
-                <span>&gt;</span> broadway concert artists
-            </a>   -->
         </div>
+        
         <div class="menu-desc">
             The Kendrick Artists Department represents a powerhouse of some of the most diverse and in-demand Artists in the world.
         </div>
+
+        <div class="social-icons-wrapper">
+            <a href="#" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank" class="social-link"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" target="_blank" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
+        </div>
+
         <a href="contact.html" class="contact-btn">Contact</a>
     </div>
 
@@ -269,22 +322,36 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        async function loadComedyArtists() {
-            const grid = document.getElementById("comedyGrid");
-            grid.innerHTML = "";
-            const q = query(collection(db, "artists"), where("active", "==", true), where("section", "==", "comedy"));
-            const snapshot = await getDocs(q);
-            snapshot.forEach(docSnap => {
-                const artist = docSnap.data();
-                const a = document.createElement("a");
-                a.className = "artist-link";
-                a.href = `profile.html?id=${docSnap.id}&from=comedy`;
-                a.innerHTML = `
-                    <div class="artist-card"><img src="${artist.imageUrl || 'https://via.placeholder.com/500'}"></div>
-                    <div class="artist-name">${artist.name}</div>`;
-                grid.appendChild(a);
-            });
-        }
+       async function loadComedyArtists() {
+  const grid = document.getElementById("comedyGrid");
+  grid.innerHTML = "";
+
+  const q = query(
+    collection(db, "artists"),
+    where("active", "==", true)
+  );
+
+  const snapshot = await getDocs(q);
+
+  snapshot.forEach(docSnap => {
+    const artist = docSnap.data();
+
+    // ✅ Show artists that belong to Comedy OR Both
+    if (artist.section === "comedy" || artist.section === "both") {
+      const a = document.createElement("a");
+      a.className = "artist-link";
+      a.href = `profile.html?id=${docSnap.id}&from=comedy`;
+      a.innerHTML = `
+        <div class="artist-card">
+          <img src="${artist.imageUrl || 'https://via.placeholder.com/500'}">
+        </div>
+        <div class="artist-name">${artist.name}</div>
+      `;
+      grid.appendChild(a);
+    }
+  });
+}
+
         window.addEventListener("DOMContentLoaded", loadComedyArtists);
     </script>
 </body>

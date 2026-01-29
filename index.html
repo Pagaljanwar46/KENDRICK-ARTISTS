@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KENDRICK & ARTISTS</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* --- RESET & FONTS --- */
@@ -155,6 +157,28 @@
             font-weight: 600;
         }
 
+        /* --- ADDED: SOCIAL ICONS STYLING --- */
+        .social-container {
+            position: absolute;
+            bottom: 52px; /* Center aligned with Contact Button */
+            right: 200px; /* Positioned to the left of the button */
+            display: flex;
+            gap: 25px;
+            z-index: 1001;
+        }
+
+        .social-container a {
+            color: #fff;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-container a:hover {
+            color: #ccc;
+            transform: translateY(-3px);
+        }
+
         .bottom-text {
             position: absolute;
             bottom: 40px;
@@ -174,90 +198,91 @@
 
 
         /* HIDE SWIRL IMAGE ON MOBILE */
-@media (max-width: 768px) {
-    .swirl-img {
-        display: none;
-    }
-}
+        @media (max-width: 768px) {
+            .swirl-img {
+                display: none;
+            }
+        }
+
+        /* RESPONSIVE HERO TEXT */
+        @media (max-width: 1200px) {
+            svg text {
+                font-size: 140px;
+                letter-spacing: 6px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            svg text {
+                font-size: 90px;
+                letter-spacing: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            svg text {
+                font-size: 60px;
+                letter-spacing: 2px;
+            }
+        }
+
+        /* MENU RESPONSIVE */
+        @media (max-width: 768px) {
+            .menu-overlay {
+                padding-left: 8%;
+            }
+
+            .submenu {
+                font-size: 2rem; /* smaller font */
+            }
+
+            .menu-desc {
+                font-size: 13px;
+                margin-top: 30px;
+            }
+
+            .menu-overlay .contact-btn {
+                right: 20px;
+                bottom: 20px;
+                padding: 12px 22px;
+            }
+            
+            /* ADDED: Mobile positioning for Social Icons */
+            .social-container {
+                right: auto;
+                left: 8%; /* Align with left text content */
+                bottom: 30px; /* Align near bottom */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .submenu {
+                font-size: 1.6rem;
+            }
+
+            .menu-header-label {
+                margin-bottom: 25px;
+            }
+        }
 
 
+        @media (max-width: 768px) {
+            .bottom-text {
+                font-size: 0.75rem;
+                text-align: center;
+                padding: 0 15px;
+            }
+        }
 
 
-/* RESPONSIVE HERO TEXT */
-@media (max-width: 1200px) {
-    svg text {
-        font-size: 140px;
-        letter-spacing: 6px;
-    }
-}
+        .nav-trigger.light {
+            text-transform: uppercase;
+        }
 
-@media (max-width: 768px) {
-    svg text {
-        font-size: 90px;
-        letter-spacing: 4px;
-    }
-}
-
-@media (max-width: 480px) {
-    svg text {
-        font-size: 60px;
-        letter-spacing: 2px;
-    }
-}
-
-
-
-/* MENU RESPONSIVE */
-@media (max-width: 768px) {
-    .menu-overlay {
-        padding-left: 8%;
-    }
-
-    .submenu {
-        font-size: 2rem; /* smaller font */
-    }
-
-    .menu-desc {
-        font-size: 13px;
-        margin-top: 30px;
-    }
-
-    .menu-overlay .contact-btn {
-        right: 20px;
-        bottom: 20px;
-        padding: 12px 22px;
-    }
-}
-
-@media (max-width: 480px) {
-    .submenu {
-        font-size: 1.6rem;
-    }
-
-    .menu-header-label {
-        margin-bottom: 25px;
-    }
-}
-
-
-@media (max-width: 768px) {
-    .bottom-text {
-        font-size: 0.75rem;
-        text-align: center;
-        padding: 0 15px;
-    }
-}
-
-
-.nav-trigger.light {
-    text-transform: uppercase;
-}
-
-.nav-trigger {
-    text-transform: uppercase;  /* make letters capital */
-    letter-spacing: 2px;         /* space between letters */
-}
-
+        .nav-trigger {
+            text-transform: uppercase;  /* make letters capital */
+            letter-spacing: 2px;         /* space between letters */
+        }
 
     </style>
 </head>
@@ -280,16 +305,18 @@
                 <span>&gt;</span> Comedy
             </a>
             
-          <!--  <a href="#" class="submenu" data-bg="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=1920">
-                <span>&gt;</span> broadway concert artists
-            </a>
-            <a href="#" class="submenu" data-bg="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1920">
-                <span>&gt;</span> speakers
-            </a>    -->
         </div>
 
         <div class="menu-desc">
             The Kendrick Artists Department represents a powerhouse of some of the most diverse and in-demand Artists in the world, whose work ranges from Stand-Up Comedy to Live Music.
+        </div>
+
+        <div class="social-container">
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
         </div>
 
         <a href="contact.html" class="contact-btn">Contact</a>
@@ -321,12 +348,6 @@
        width="2400" height="2400"
        opacity="0.85"
        preserveAspectRatio="xMidYMid meet"/>
-
-
-
-
-
-
 
                 </g>
             </svg>
