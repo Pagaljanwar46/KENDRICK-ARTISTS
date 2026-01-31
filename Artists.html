@@ -288,33 +288,28 @@ header {
 /* --- UPDATED: 1CM FURTHER DOWN (3CM TOTAL) & BOLD --- */
 /* --- UPDATED: 1CM FURTHER DOWN (3CM TOTAL) & BOLD --- */
 /* --- FIXED FOR GITHUB DEPLOYMENT --- */
+/* --- UPDATED: SMALLER SIZE & BOLD TEXT --- */
 .artist-info-box {
-    /* Use absolute to prevent content shifting on different screens */
-    position: absolute; 
-    top: 50%;             /* Start at center */
-    left: 10%;            /* Align with your 'talent' label */
-    
-    /* 1.5cm down calculation (approx 57px) */
-    margin-top: 57px;     
-    width: 320px;          
-    
+    margin-top: 87px;      /* 1.5cm down position */
+    width: 260px;          /* Reduced width from 320px */
     background: linear-gradient(to right, #b21f24 33%, #fff 33%, #fff 66%, #003b73 66%);
-    padding: 28px;         
+    padding: 15px 20px;    /* Reduced padding for a tighter look */
     color: #000;
-    font-size: 13px;       
-    line-height: 1.5;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-    z-index: 1010;        /* Ensure it stays on top of the background */
+    font-size: 11px;       /* Smaller body text */
+    line-height: 1.4;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 10;
 }
 
 .artist-info-box h4 {
-    font-size: 18px;       
-    margin-bottom: 8px;
-    font-weight: 900;      
+    font-size: 14px;       /* Smaller heading */
+    margin-bottom: 4px;
+    font-weight: 900;      /* Kept extra bold for readability */
 }
 
 .artist-info-box p {
-    font-weight: 700;      
+    font-weight: 700;      /* Kept bold for readability */
 }
 
 /* Hide on small mobiles to prevent overlap with buttons */
