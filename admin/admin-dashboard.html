@@ -206,7 +206,9 @@
             <input id="imageUrl" placeholder="Image URL">
             <textarea id="bio" placeholder="Artist Biography"></textarea>
             <input id="videoUrl" placeholder="Video URL (YouTube Embed)">
-<input id="galleryImages" placeholder="Gallery Images (comma-separated URLs)">
+<input id="galleryImage1" placeholder="Gallery Image 1 URL (optional)">
+<input id="galleryImage2" placeholder="Gallery Image 2 URL (optional)">
+
 <textarea id="bioAfterVideo" placeholder="Text after video"></textarea>
 
 <textarea id="bioAfterImage1" placeholder="Text after first image"></textarea>
@@ -305,15 +307,27 @@
 
     // --- SORT ---
     if (sortValue) {
-      if (sortValue === "date-desc") {
-        artistsArray.sort((a, b) => b.updatedAt?.seconds - a.updatedAt?.seconds);
-      } else if (sortValue === "date-asc") {
-        artistsArray.sort((a, b) => a.updatedAt?.seconds - b.updatedAt?.seconds);
-      } else if (sortValue === "name-asc") {
-        artistsArray.sort((a, b) => a.name.localeCompare(b.name));
-      } else if (sortValue === "name-desc") {
-        artistsArray.sort((a, b) => b.name.localeCompare(a.name));
-      }
+     if (sortValue === "date-desc") {
+  artistsArray.sort((a, b) => {
+    const aTime = a.updatedAt?.seconds || 0;
+    const bTime = b.updatedAt?.seconds || 0;
+    return bTime - aTime;
+  });
+}
+else if (sortValue === "date-asc") {
+  artistsArray.sort((a, b) => {
+    const aTime = a.updatedAt?.seconds || 0;
+    const bTime = b.updatedAt?.seconds || 0;
+    return aTime - bTime;
+  });
+}
+else if (sortValue === "name-asc") {
+  artistsArray.sort((a, b) => a.name.localeCompare(b.name));
+}
+else if (sortValue === "name-desc") {
+  artistsArray.sort((a, b) => b.name.localeCompare(a.name));
+}
+
     }
 
     personalContainer.innerHTML = "";
@@ -387,8 +401,13 @@ document.getElementById("sortSelect").addEventListener("change", loadArtists);
       const active = document.getElementById("active").checked;
       const section = document.getElementById("section").value;
       const videoUrl = document.getElementById("videoUrl").value.trim();
-const galleryInput = document.getElementById("galleryImages").value.trim();
-const galleryImages = galleryInput ? galleryInput.split(",").map(url => url.trim()) : [];
+const galleryImage1 = document.getElementById("galleryImage1").value.trim();
+const galleryImage2 = document.getElementById("galleryImage2").value.trim();
+
+const galleryImages = [];
+if (galleryImage1) galleryImages.push(galleryImage1);
+if (galleryImage2) galleryImages.push(galleryImage2);
+
 const bioAfterVideo = document.getElementById("bioAfterVideo").value.trim();
 const bioAfterImage1 = document.getElementById("bioAfterImage1").value.trim();
 const bioAfterImage2 = document.getElementById("bioAfterImage2").value.trim();
@@ -416,10 +435,23 @@ updatedAt: serverTimestamp() });
           currentEditId = null;
           saveBtn.textContent = "Save Artist";
         } else {
-          await addDoc(collection(db, "artists"), { name, slug, bio, imageUrl, category, section, bioAfterVideo: bioAfterVideo || null,
-bioAfterImage1: bioAfterImage1 || null,
-bioAfterImage2: bioAfterImage2 || null,
-active, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
+        await addDoc(collection(db, "artists"), {
+  name,
+  slug,
+  bio,
+  imageUrl,
+  category,
+  section,
+  active,
+  videoUrl: videoUrl || null,
+  bioAfterVideo: bioAfterVideo || null,
+  bioAfterImage1: bioAfterImage1 || null,
+  bioAfterImage2: bioAfterImage2 || null,
+  galleryImages: galleryImages.length ? galleryImages : null,
+  createdAt: serverTimestamp(),
+  updatedAt: serverTimestamp()
+});
+
           alert("Artist added successfully!");
         }
         
@@ -432,7 +464,9 @@ active, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
         document.getElementById("active").checked = false;
         document.getElementById("section").value = "";
         document.getElementById("videoUrl").value = "";
-        document.getElementById("galleryImages").value = "";
+        document.getElementById("galleryImage1").value = "";
+document.getElementById("galleryImage2").value = "";
+
         document.getElementById("bioAfterVideo").value = "";
         document.getElementById("bioAfterImage1").value = "";
         document.getElementById("bioAfterImage2").value = "";
@@ -463,7 +497,9 @@ active, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
         document.getElementById("active").checked = artist.active;
         document.getElementById("section").value = artist.section;
         document.getElementById("videoUrl").value = artist.videoUrl || "";
-document.getElementById("galleryImages").value = artist.galleryImages ? artist.galleryImages.join(", ") : "";
+document.getElementById("galleryImage1").value = artist.galleryImages?.[0] || "";
+document.getElementById("galleryImage2").value = artist.galleryImages?.[1] || "";
+
 document.getElementById("bioAfterVideo").value = artist.bioAfterVideo || "";
 document.getElementById("bioAfterImage1").value = artist.bioAfterImage1 || "";
 document.getElementById("bioAfterImage2").value = artist.bioAfterImage2 || "";

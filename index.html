@@ -48,6 +48,14 @@
 
         svg { width: 100%; height: 100%; fill: #07315a; }
 
+        /* --- FIXED: Base Text Styles moved here so Media Queries work --- */
+        svg text {
+            font-size: 180px;
+            letter-spacing: 8px;
+            font-family: 'Dubai','Segoe UI',sans-serif;
+            font-weight: 800;
+        }
+
         /* --- NAVIGATION TRIGGER --- */
         .nav-trigger {
             position: fixed;
@@ -144,43 +152,35 @@
             opacity: 0.8;
         }
 
-        /* --- ADDED: ARTIST INFO BOX STYLE --- */
-       /* --- UPDATED: POSITIONED 2CM DOWN & 3CM RIGHT --- */
-/* --- ADDED: ARTIST INFO BOX STYLE --- */
-/* --- UPDATED: ARTIST INFO BOX STYLE --- */
-/* --- UPDATED: INCREASED SIZE --- */
-/* --- UPDATED: INCREASED SIZE & BOLD TEXT --- */
-/* --- UPDATED: 1CM FURTHER DOWN (3CM TOTAL) & BOLD --- */
-/* --- UPDATED: SMALLER SIZE & BOLD TEXT --- */
-.artist-info-box {
-    margin-top: 87px;      /* 1.5cm down position */
-    width: 260px;          /* Reduced width from 320px */
-    background: linear-gradient(to right, #b21f24 33%, #fff 33%, #fff 66%, #003b73 66%);
-    padding: 15px 20px;    /* Reduced padding for a tighter look */
-    color: #000;
-    font-size: 11px;       /* Smaller body text */
-    line-height: 1.4;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    z-index: 10;
-}
+        .artist-info-box {
+            margin-top: 87px;      /* 1.5cm down position */
+            width: 260px;          /* Reduced width from 320px */
+            background: linear-gradient(to right, #b21f24 33%, #fff 33%, #fff 66%, #003b73 66%);
+            padding: 15px 20px;    /* Reduced padding for a tighter look */
+            color: #000;
+            font-size: 11px;       /* Smaller body text */
+            line-height: 1.4;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
 
-.artist-info-box h4 {
-    font-size: 14px;       /* Smaller heading */
-    margin-bottom: 4px;
-    font-weight: 900;      /* Kept extra bold for readability */
-}
+        .artist-info-box h4 {
+            font-size: 14px;       /* Smaller heading */
+            margin-bottom: 4px;
+            font-weight: 900;      /* Kept extra bold for readability */
+        }
 
-.artist-info-box p {
-    font-weight: 700;      /* Kept bold for readability */
-}
+        .artist-info-box p {
+            font-weight: 700;      /* Kept bold for readability */
+        }
 
-/* Hide on small mobiles to prevent overlap with buttons */
-@media (max-width: 600px) {
-    .artist-info-box {
-        display: none;
-    }
-}
+        /* Hide on small mobiles to prevent overlap with buttons */
+        @media (max-width: 600px) {
+            .artist-info-box {
+                display: none;
+            }
+        }
 
         /* Contact button in Menu */
         .menu-overlay .contact-btn {
@@ -243,6 +243,7 @@
         }
 
         /* RESPONSIVE HERO TEXT */
+        /* Note: Adjusted sizes significantly for mobile because 'slice' aspect ratio crops width heavily */
         @media (max-width: 1200px) {
             svg text {
                 font-size: 140px;
@@ -252,15 +253,15 @@
 
         @media (max-width: 768px) {
             svg text {
-                font-size: 90px;
-                letter-spacing: 4px;
+                font-size: 70px; /* Reduced from 90 to fit 'slice' cropping */
+                letter-spacing: 3px;
             }
         }
 
         @media (max-width: 480px) {
             svg text {
-                font-size: 60px;
-                letter-spacing: 2px;
+                font-size: 38px; /* Drastically reduced to fit narrow mobile width */
+                letter-spacing: 1px;
             }
         }
 
@@ -352,7 +353,7 @@
 </p>
         </div>
 
-       
+        
 
         <div class="social-container">
             <a href="https://www.instagram.com/kendrickartists/" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -376,21 +377,19 @@
                     <mask id="text-mask">
                         <rect width="100%" height="100%" fill="white"/>
                         <text x="960" y="540"
-      text-anchor="middle"
-      dominant-baseline="middle"
-      style="font-family:'Dubai','Segoe UI',sans-serif;
-      font-weight:800;font-size:180px;letter-spacing:8px;">KENDRICK ARTISTS</text>
+                              text-anchor="middle"
+                              dominant-baseline="middle">KENDRICK ARTISTS</text>
 
                     </mask>
                 </defs>
                 <g mask="url(#text-mask)">
                     <rect width="100%" height="100%" fill="#07315a"/>
-              <image href="Assects/swirl.png"
-       class="swirl-img"
-       x="-240" y="-735"
-       width="2400" height="2400"
-       opacity="0.85"
-       preserveAspectRatio="xMidYMid meet"/>
+                    <image href="Assects/swirl.png"
+                           class="swirl-img"
+                           x="-240" y="-735"
+                           width="2400" height="2400"
+                           opacity="0.85"
+                           preserveAspectRatio="xMidYMid meet"/>
 
                 </g>
             </svg>
