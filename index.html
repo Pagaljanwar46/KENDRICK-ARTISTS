@@ -144,6 +144,35 @@
             opacity: 0.8;
         }
 
+        /* --- ADDED: ARTIST INFO BOX STYLE --- */
+       /* --- UPDATED: POSITIONED 2CM DOWN & 3CM RIGHT --- */
+/* --- ADDED: ARTIST INFO BOX STYLE --- */
+/* --- UPDATED: ARTIST INFO BOX STYLE --- */
+/* --- UPDATED: INCREASED SIZE --- */
+/* --- UPDATED: INCREASED SIZE & BOLD TEXT --- */
+/* --- UPDATED: 1CM FURTHER DOWN (3CM TOTAL) & BOLD --- */
+.artist-info-box {
+    margin-top: 144px;     /* Increased by 38px (1cm) */
+    width: 320px;          
+    background: linear-gradient(to right, #b21f24 33%, #fff 33%, #fff 66%, #003b73 66%);
+    padding: 28px;         
+    color: #000;
+    font-size: 13px;       
+    line-height: 1.5;
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+.artist-info-box h4 {
+    font-size: 18px;       
+    margin-bottom: 8px;
+    font-weight: 900;      /* Heavy Bold Heading */
+}
+
+.artist-info-box p {
+    font-weight: 700;      /* Bold Description */
+}
+
         /* Contact button in Menu */
         .menu-overlay .contact-btn {
             position: absolute;
@@ -157,11 +186,11 @@
             font-weight: 600;
         }
 
-        /* --- ADDED: SOCIAL ICONS STYLING --- */
+        /* --- SOCIAL ICONS STYLING --- */
         .social-container {
             position: absolute;
-            bottom: 52px; /* Center aligned with Contact Button */
-            right: 200px; /* Positioned to the left of the button */
+            bottom: 52px; 
+            right: 200px; 
             display: flex;
             gap: 25px;
             z-index: 1001;
@@ -194,8 +223,8 @@
         @media (max-width: 768px) {
             .submenu { font-size: 2.2rem; }
             .nav-trigger.dark { right: 30px; }
+            .artist-info-box { display: none; } /* Optional: Hide box on small mobile */
         }
-
 
         /* HIDE SWIRL IMAGE ON MOBILE */
         @media (max-width: 768px) {
@@ -233,7 +262,7 @@
             }
 
             .submenu {
-                font-size: 2rem; /* smaller font */
+                font-size: 2rem; 
             }
 
             .menu-desc {
@@ -247,11 +276,10 @@
                 padding: 12px 22px;
             }
             
-            /* ADDED: Mobile positioning for Social Icons */
             .social-container {
                 right: auto;
-                left: 8%; /* Align with left text content */
-                bottom: 30px; /* Align near bottom */
+                left: 8%; 
+                bottom: 30px; 
             }
         }
 
@@ -265,7 +293,6 @@
             }
         }
 
-
         @media (max-width: 768px) {
             .bottom-text {
                 font-size: 0.75rem;
@@ -274,14 +301,13 @@
             }
         }
 
-
         .nav-trigger.light {
             text-transform: uppercase;
         }
 
         .nav-trigger {
-            text-transform: uppercase;  /* make letters capital */
-            letter-spacing: 2px;         /* space between letters */
+            text-transform: uppercase;  
+            letter-spacing: 2px;         
         }
 
     </style>
@@ -297,25 +323,33 @@
         <div class="menu-header-label">talent</div>
 
         <div class="submenu-list">
-
-            <a href="Artists.html" class="submenu" data-bg="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&q=80&w=1920">
-                <span>&gt;</span> Personal Appearance
-            </a>
-            <a href="comedy.html" class="submenu" data-bg="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1920">
+             <a href="comedy.html" class="submenu" data-bg="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1920">
                 <span>&gt;</span> Comedy
             </a>
-            
+                
+            <a href="Artists.html" class="submenu" data-bg="https://res.cloudinary.com/dgcr7e27r/image/upload/v1769848593/Best-Cameras_bb8kf5.webp">
+                <span>&gt;</span> Personal Appearance
+            </a>
+           
+            <a href="#" class="submenu" data-bg="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&q=80&w=1920">
+                <span>&gt;</span> Music
+            </a>
         </div>
 
-        <div class="menu-desc">
-            The Kendrick Artists Department represents a powerhouse of some of the most diverse and in-demand Artists in the world, whose work ranges from Stand-Up Comedy to Live Music.
+        <div class="artist-info-box">
+            <h4>Artist Manager/Agent</h4>
+            <p>(AHR-tist MAN-uh-jer)</p>
+            <p style="margin-top: 8px;">A person responsible for developing a comedian’s long-term strategy, advising on branding and creative choices, managing relationships with venues, agents, and other industry professionals, and collaborating with booking agents who secure live appearances, negotiate show terms, and coordinate the logistics of performances.
+</p>
         </div>
+
+       
 
         <div class="social-container">
-            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/kendrickartists/" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
             <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
             <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
         </div>
 
@@ -374,7 +408,6 @@
             }
         }
 
-        // --- HOVER BACKGROUND LOGIC ---
         const submenus = document.querySelectorAll('.submenu');
         const menuBg = document.getElementById('menuBg');
 
