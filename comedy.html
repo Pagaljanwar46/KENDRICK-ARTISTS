@@ -272,6 +272,13 @@
 .artist-info-box p {
     font-weight: 700;      /* Kept bold for readability */
 }
+
+/* Hide on small mobiles to prevent overlap with buttons */
+@media (max-width: 600px) {
+    .artist-info-box {
+        display: none;
+    }
+}
 </style>
 
 </head>
