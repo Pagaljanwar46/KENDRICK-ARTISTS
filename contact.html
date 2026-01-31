@@ -146,91 +146,81 @@
         .image-container { flex-grow: 1; border-radius: 30px; overflow: hidden; }
         .image-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Responsive */
-        @media (max-width: 992px) {
-            .main-grid { grid-template-columns: 1fr; }
-            .description-text { text-align: left; padding-left: 0; order: -1; }
-            .image-container { height: 300px; }
-        }
-        @media (max-width: 600px) { .form-row { flex-direction: column; } }
-
-
-
         .social-icons {
-    margin-top: 20px;
-    display: flex;
-    gap: 20px;
-    justify-content: flex-end; /* aligns right, matches description */
-}
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            justify-content: flex-end; 
+        }
 
-.social-icons a {
-    color: #004282; /* Kendrick Artists blue */
-    font-size: 1.5rem;
-    transition: color 0.3s, transform 0.3s;
-}
+        .social-icons a {
+            color: #004282; 
+            font-size: 1.5rem;
+            transition: color 0.3s, transform 0.3s;
+        }
 
-.social-icons a:hover {
-    color: #d61c4e; /* change to red/pink on hover for contrast */
-    transform: translateY(-3px);
-}
+        .social-icons a:hover {
+            color: #d61c4e; 
+            transform: translateY(-3px);
+        }
 
-@media (max-width: 992px) {
-    .social-icons { justify-content: flex-start; margin-top: 15px; }
-}
+        /* --- Responsive Queries --- */
+        @media (max-width: 992px) {
+            .main-grid { grid-template-columns: 1fr; gap: 30px; }
+            .description-text { text-align: left; padding-left: 0; order: -1; margin-bottom: 20px; }
+            .image-container { height: 300px; }
+            .social-icons { justify-content: flex-start; margin-top: 15px; }
+        }
 
+        /* EXTRA MOBILE FIXES */
+        @media (max-width: 600px) { 
+            .card-container { padding: 30px 20px; border-radius: 25px; }
+            .headline h1 { font-size: 2.2rem; margin-bottom: 25px; }
+            .form-row { flex-direction: column; gap: 15px; } 
+            .submit-btn { width: 100%; justify-content: space-between; }
+        }
 
     </style>
 </head>
 <body>
 
     <div class="card-container">
-
-<a href="javascript:void(0)" class="back-btn" onclick="goBack()">
-    <i class="fa-solid fa-arrow-left"></i> Back
-</a>
+        <a href="javascript:void(0)" class="back-btn" onclick="goBack()">
+            <i class="fa-solid fa-arrow-left"></i> Back
+        </a>
 
         <div class="main-grid">
             <div class="left-column">
                 <div class="headline">
-                    <h1>Get in Touch With  <br> Kendrick Artists</h1>
+                    <h1>Get in Touch With <br> Kendrick Artists</h1>
                 </div>
 
                 <form class="contact-form" id="energyForm">
                     <div class="form-row">
                         <div class="input-group">
                             <i class="fa-regular fa-user"></i>
-                           <input type="text" name="first_name" placeholder="First Name" required>
-
+                            <input type="text" name="first_name" placeholder="First Name" required>
                         </div>
                         <div class="input-group">
                             <i class="fa-regular fa-user"></i>
-                          <input type="text" name="last_name" placeholder="Last Name" required>
-
+                            <input type="text" name="last_name" placeholder="Last Name" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="input-group">
                             <i class="fa-solid fa-phone-flip"></i>
-                          <input type="tel" name="phone" placeholder="Phone No">
-
+                            <input type="tel" name="phone" placeholder="Phone No">
                         </div>
                         <div class="input-group">
                             <i class="fa-regular fa-envelope"></i>
-                          <input type="email" name="email" placeholder="Email" required>
-
+                            <input type="email" name="email" placeholder="Email" required>
                         </div>
                     </div>
 
                     <div class="input-group">
                        <textarea rows="4" name="message" placeholder="Your message"></textarea>
-
                     </div>
-
-                <!----   <div class="checkbox-group">
-                        <input type="checkbox" id="privacy-policy" required>
-                        <label for="privacy-policy">I have read and agree to the Privacy Policy</label>
-                    </div>    ---->
 
                     <div>
                         <button type="submit" class="submit-btn">
@@ -252,63 +242,41 @@
                 </div>
 
                 <div class="social-icons">
-    <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-    <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-    <a href="https://www.twitter.com" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-   <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
-
-</div>
-
+                    <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.twitter.com" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+                </div>
             </div>
         </div>
     </div>
 
-   <script>
-const form = document.getElementById("energyForm");
-
-form.addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  console.log("Submit clicked");
-
-  emailjs.sendForm(
-    "YOUR_SERVICE_ID",
-    "YOUR_TEMPLATE_ID",
-    this
-  ).then(function() {
-    alert("Message sent successfully");
-    form.reset();
-  }, function(error) {
-    alert("Failed to send message");
-    console.log(error);
-  });
-});
-</script>
-
-
-
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
-    function goBack() {
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = "index.html"; // fallback if no history
+        (function(){
+          emailjs.init("PASTE_YOUR_PUBLIC_KEY_HERE");
+        })();
+
+        const form = document.getElementById("energyForm");
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
+            .then(function() {
+                alert("Message sent successfully");
+                form.reset();
+            }, function(error) {
+                alert("Failed to send message");
+                console.log(error);
+            });
+        });
+
+        function goBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = "index.html";
+            }
         }
-    }
-</script>
-
-
-<!-- EmailJS -->
-
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-
-<script>
-(function(){
-  emailjs.init("PASTE_YOUR_PUBLIC_KEY_HERE");
-})();
-</script>
-
-
-
+    </script>
 </body>
 </html>
