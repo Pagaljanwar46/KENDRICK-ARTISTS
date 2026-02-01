@@ -290,7 +290,8 @@ async function loadMusicArtists() {
     snapshot.forEach(docSnap => {
         const artist = docSnap.data();
 
-        if (artist.section === "music" || artist.section === "both") {
+        // Only include artists that are strictly in the music section
+        if (artist.section === "music") {
             const a = document.createElement("a");
             a.className = "artist-link";
             a.href = `profile.html?id=${docSnap.id}&from=music`;
@@ -304,6 +305,7 @@ async function loadMusicArtists() {
         }
     });
 }
+
 
 window.addEventListener("DOMContentLoaded", loadMusicArtists);
 </script>
