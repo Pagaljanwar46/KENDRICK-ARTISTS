@@ -168,11 +168,18 @@
   if (from === "comedy") {
     backBtn.href = "comedy.html";
     backBtn.textContent = "Back to Comedy";
-  } else {
+  } else if (from === "music") {
+    backBtn.href = "music.html";
+    backBtn.textContent = "Back to Music";
+  } else if (from === "appearance" || from === "personal") {
     backBtn.href = "Artists.html";
     backBtn.textContent = "Back to Artists";
+  } else {
+    backBtn.href = "index.html";
+    backBtn.textContent = "Back to Home";
   }
 </script>
+
 
 
  <div class="container">

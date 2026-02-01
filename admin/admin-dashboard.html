@@ -195,12 +195,14 @@
             <input id="slug" placeholder="URL Slug (e.g. kendrick-lamar)">
             <input id="category" placeholder="Category (e.g. West Coast)">
            
-            <select id="section">
+           <select id="section">
   <option value="">Select Section</option>
   <option value="personal">Personal Appearance</option>
   <option value="comedy">Comedy</option>
-  <option value="both">Both (Comedy + Personal)</option>
+  <option value="music">Music</option>
+  <option value="both">Comedy + Personal</option>
 </select>
+
 
 
             <input id="imageUrl" placeholder="Image URL">
@@ -245,6 +247,9 @@
 <h3 style="margin-top:40px;">Comedy</h3>
 <div id="comedyArtists"></div>
 
+<h3 style="margin-top:40px;">Music</h3>
+<div id="musicArtists"></div>
+
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
@@ -282,12 +287,15 @@
     async function loadArtists() {
   const personalContainer = document.getElementById("personalArtists");
   const comedyContainer = document.getElementById("comedyArtists");
+  const musicContainer = document.getElementById("musicArtists");
+
 
   const searchInput = document.getElementById("searchInput").value.toLowerCase();
   const sortValue = document.getElementById("sortSelect").value;
 
   personalContainer.innerHTML = "<p>Loading...</p>";
   comedyContainer.innerHTML = "<p>Loading...</p>";
+ musicContainer.innerHTML = "<p>Loading...</p>";
 
   try {
     const snapshot = await getDocs(collection(db, "artists"));
@@ -332,9 +340,11 @@ else if (sortValue === "name-desc") {
 
     personalContainer.innerHTML = "";
     comedyContainer.innerHTML = "";
+    musicContainer.innerHTML = "";
 
     let personalCount = 0;
     let comedyCount = 0;
+    let musicCount = 0;
 
     artistsArray.forEach(artist => {
       const div = document.createElement("div");
@@ -367,6 +377,13 @@ else if (sortValue === "name-desc") {
         comedyContainer.appendChild(div.cloneNode(true));
         comedyCount++;
       }
+
+      // MUSIC
+if (artist.section === "music") {
+  musicContainer.appendChild(div.cloneNode(true));
+  musicCount++;
+}
+
     });
 
     if (personalCount === 0) {
@@ -376,6 +393,11 @@ else if (sortValue === "name-desc") {
     if (comedyCount === 0) {
       comedyContainer.innerHTML = "<p>No Comedy artists.</p>";
     }
+
+    if (musicCount === 0) {
+  musicContainer.innerHTML = "<p>No Music artists.</p>";
+}
+
 
   } catch (err) {
     personalContainer.innerHTML = "Error loading artists";
