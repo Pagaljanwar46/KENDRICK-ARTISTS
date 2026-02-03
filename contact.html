@@ -254,13 +254,13 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
         (function(){
-          emailjs.init("PASTE_YOUR_PUBLIC_KEY_HERE");
+          emailjs.init("ZcvcuUNQJ98su11LE");
         })();
 
         const form = document.getElementById("energyForm");
         form.addEventListener("submit", function(e) {
             e.preventDefault();
-            emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
+            emailjs.sendForm("service_j7hksjn", "template_yxth06a", this)
             .then(function() {
                 alert("Message sent successfully");
                 form.reset();
