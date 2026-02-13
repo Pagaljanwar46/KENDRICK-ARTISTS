@@ -13,8 +13,22 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KENDRICK & ARTISTS</title>
+    <title>Kendrick Artists | Talent & Entertainment Management</title>
+<meta name="description" content="Kendrick Artists is a full-service entertainment company representing comedians, musicians, and talent for live events, tours, and personal appearances.">
+<meta property="og:title" content="Kendrick Artists">
+<meta property="og:description" content="Talent management and entertainment company representing comedians, musicians, and live performers.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kendrickartists.com">
+<meta property="og:image" content="https://kendrickartists.com/Assects/logo.png">
+
     
+
+<!--- Browser logo -->
+<link rel="icon" type="image/gif" href="/Assects/favicon.gif">
+
+
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dubai:wght@400;500;700;900&display=swap" rel="stylesheet">
     
@@ -60,12 +74,13 @@
         svg { width: 100%; height: 100%; }
 
         /* --- FIXED: Base Text Styles moved here so Media Queries work --- */
-        svg text {
-            font-size: 180px;
-            letter-spacing: 8px;
-            font-family: 'Dubai','Segoe UI',sans-serif;
-            font-weight: 800;
-        }
+       svg text {
+    font-size: 190px;
+    letter-spacing: 6px;
+    font-family: 'Dubai','Segoe UI',sans-serif;
+    font-weight: 900;
+}
+
 
         /* --- NAVIGATION TRIGGER --- */
        .nav-trigger {
@@ -270,6 +285,9 @@
   pointer-events: none;
 }
 
+
+
+
     </style>
 </head>
 
@@ -322,7 +340,19 @@
                 <defs>
                     <mask id="text-mask">
                         <rect width="100%" height="100%" fill="white"/>
-                        <text x="960" y="540" text-anchor="middle" dominant-baseline="middle">KENDRICK ARTISTS</text>
+                       <text
+  id="heroText"
+  x="960"
+  y="540"
+  text-anchor="middle"
+  dominant-baseline="middle"
+  fill="black"
+  stroke="black"
+>
+  KENDRICK ARTISTS
+</text>
+
+
                     </mask>
                 </defs>
                 
@@ -331,13 +361,20 @@
                 <g mask="url(#text-mask)">
                   <rect x="0" y="0" width="100%" height="100%" fill="white" />
 
-<image
-  href="https://res.cloudinary.com/dgcr7e27r/image/upload/v1770311547/Final_Hollywood_Map_02052026_1_1_fmsdxy.png"
-  x="0" y="0"
-  width="100%"
-  height="100%"
-  preserveAspectRatio="xMidYMid slice"
-/>
+<foreignObject x="0" y="0" width="100%" height="100%">
+  <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%;">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      style="width:100%; height:100%; object-fit:cover; display:block;"
+    >
+      <source src="https://res.cloudinary.com/dgcr7e27r/video/upload/v1770737386/206895_1_huybxy.mp4" type="video/mp4">
+    </video>
+  </div>
+</foreignObject>
+
 
 <image
   href="Assects/swirl.png"
