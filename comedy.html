@@ -370,7 +370,9 @@ A person responsible for developing a comedian’s long-term strategy, advising 
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+       import { getFirestore, collection, getDocs, query, where, orderBy } 
+from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+
 
         const firebaseConfig = {
             apiKey: "AIzaSyAGbc3hE5qsN8axCsRNaNH4CNSDp3Yave8",
@@ -388,10 +390,12 @@ A person responsible for developing a comedian’s long-term strategy, advising 
   const grid = document.getElementById("comedyGrid");
   grid.innerHTML = "";
 
-  const q = query(
-    collection(db, "artists"),
-    where("active", "==", true)
-  );
+const q = query(
+  collection(db, "artists"),
+  where("active", "==", true),
+  orderBy("order", "asc")
+);
+
 
   const snapshot = await getDocs(q);
 

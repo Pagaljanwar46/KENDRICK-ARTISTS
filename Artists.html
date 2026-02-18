@@ -425,7 +425,8 @@ submenus.forEach(item => {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { getFirestore, collection, query, where, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAGbc3hE5qsN8axCsRNaNH4CNSDp3Yave8",
@@ -443,10 +444,12 @@ async function loadArtists() {
   const grid = document.getElementById("rosterGrid");
   grid.innerHTML = "";
 
-  const q = query(
-    collection(db, "artists"),
-    where("active", "==", true)
-  );
+ const q = query(
+  collection(db, "artists"),
+  where("active", "==", true),
+  orderBy("order", "asc")
+);
+
 
   const snapshot = await getDocs(q);
 
