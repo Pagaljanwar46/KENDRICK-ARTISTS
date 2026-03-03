@@ -25,42 +25,54 @@
             overflow-x: hidden;
         }
 
-        /* --- HEADER & NAV TRIGGER --- */
-        .page-heading {
+        /* ================= HEADER (Updated to match Personal Appearance) ================= */
+        header {
             position: fixed;
-            top: 30px;
-            left: 40px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid #f0f0f0;
             z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
             font-size: 24px;
             font-weight: 600;
             color: #003366;
             text-transform: lowercase;
-            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
         }
 
+        /* --- MENU BUTTON --- */
         .nav-trigger {
             position: fixed;
-            top: 30px;
+            top: 22px; 
             right: 40px;
-            z-index: 1000;
+            z-index: 1002;
             font-weight: bold;
             font-size: 1.1rem;
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 2px;
-            padding: 10px; /* Better touch target */
-            transition: all 0.3s ease;
+            padding: 5px; 
+            color: #003366;
+            transition: color 0.3s ease;
         }
 
-        .nav-trigger.light { color: #07315a; }
-        .nav-trigger.dark { color: white; right: 5%; }
+        .nav-trigger.active { color: white; }
 
         /* --- FLEXBOX MENU OVERLAY --- */
         .menu-overlay {
             position: fixed;
             inset: 0;
             background: #000;
-            z-index: 999;
+            z-index: 1001;
             transform: translateY(-100%);
             transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
             display: flex;
@@ -89,7 +101,7 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             font-weight: 700;
-            margin-bottom: auto; /* Pushes content down */
+            margin-bottom: auto;
             padding-top: 20px;
         }
 
@@ -98,7 +110,7 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: auto; /* Pushes footer down */
+            margin-bottom: auto;
         }
 
         .submenu-list {
@@ -123,8 +135,6 @@
 
         .artist-info-box {
             width: 260px;
-            background: transparent;
-            padding: 15px 20px;
             color: #fff;
             font-family: 'Dubai', sans-serif;
             padding-bottom: 20px;
@@ -133,7 +143,6 @@
         .artist-info-box h4 { font-size: 17px; font-weight: 900; }
         .artist-info-box p { font-size: 13px; font-weight: 700; opacity: 0.8; }
 
-        /* Menu Footer (Socials & Contact) */
         .menu-footer {
             display: flex;
             justify-content: space-between;
@@ -142,10 +151,7 @@
             padding-bottom: 20px;
         }
 
-        .social-icons-wrapper {
-            display: flex;
-            gap: 25px;
-        }
+        .social-icons-wrapper { display: flex; gap: 25px; }
 
         .social-link {
             color: #fff;
@@ -181,10 +187,11 @@
 
         .artist-card {
             position: relative;
-            padding-top: 125%; /* Maintains aspect ratio perfectly */
+            padding-top: 125%;
             overflow: hidden;
             border: 4px solid transparent;
             transition: border-color 0.3s ease;
+            background-color: #f5f5f7; /* Placeholder background */
         }
 
         .artist-card img {
@@ -192,115 +199,124 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100%; /* Ensures width fills the card */
+            width: 100%;
             height: 100%;
             object-fit: cover;
+            /* Fade-in Logic */
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
         }
 
+        .artist-card img.loaded { opacity: 1; }
+
         .artist-name {
-            margin-top: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            margin-top: 14px;
+            text-align: center;
+            color: #000;
+            text-transform: uppercase;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
         }
 
         .artist-link {
             text-decoration: none;
             color: #000;
-            display: block; /* Ensures the whole block is clickable cleanly */
+            display: block;
         }
 
-        .artist-link:hover .artist-card {
-            border-color: #003366;
+        .artist-link:hover .artist-card { border-color: #003366; }
+
+        /* --- LOADING SCREEN --- */
+        #glass-preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(240, 245, 255, 0.5) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transform: translateZ(0);
         }
 
-        /* --- MOBILE RESPONSIVE QUERIES --- */
-        @media (max-width: 1024px) {
-            .roster-grid { 
-                grid-template-columns: repeat(3, 1fr); 
-                padding: 100px 30px 40px; 
-            }
-            .submenu { font-size: 2.5rem; }
-            .artist-info-box { display: none; }
-        }
+        .loading-wrapper { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+        .loading-line-container { width: 220px; height: 3px; background: rgba(0, 51, 102, 0.08); border-radius: 4px; overflow: hidden; position: relative; }
+        .loading-line { position: absolute; top: 0; left: 0; height: 100%; width: 50%; background: linear-gradient(90deg, transparent, #003366, #00509e, transparent); border-radius: 4px; will-change: transform; animation: elasticSlide 1.8s infinite cubic-bezier(0.65, 0, 0.35, 1); }
+        .loading-text { font-family: 'Dubai', sans-serif; color: #003366; font-size: 0.75rem; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; animation: pulseText 1.8s infinite ease-in-out; }
 
-        @media (max-width: 768px) {
-            .roster-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-                padding: 90px 20px 40px; 
-                gap: 20px;
-            }
-            .menu-overlay { padding: 8%; }
-            .submenu { font-size: 2rem; }
-            .submenu span { margin-right: 15px; }
-        }
+        @keyframes elasticSlide { 0% { transform: translateX(-150%) scaleX(1); } 50% { transform: translateX(20%) scaleX(1.6); } 100% { transform: translateX(200%) scaleX(1); } }
+        @keyframes pulseText { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
+        #glass-preloader.hidden { opacity: 0; visibility: hidden; }
 
-        @media (max-width: 480px) {
-            /* Shrink grid to 2 compact columns for standard phones */
-            .roster-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 15px; 
-                padding: 80px 15px 30px; 
-            }
-            
-            /* Tighter headers for mobile screen real estate */
-            .page-heading { top: 20px; left: 20px; font-size: 20px; }
-            .nav-trigger { top: 15px; right: 10px; font-size: 1rem; }
-            
-            .artist-name { font-size: 14px; margin-top: 8px; }
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 1024px) { .roster-grid { grid-template-columns: repeat(3, 1fr); } .logo { font-size: 18px; } }
+        @media (max-width: 768px) { .roster-grid { grid-template-columns: repeat(2, 1fr); padding-top: 100px; } .submenu { font-size: 2rem; } }
 
-            /* Mobile Menu specific stacking */
-            .menu-overlay { padding: 10% 6%; }
-            .submenu { font-size: 1.8rem; gap: 5px; }
-            .submenu span { margin-right: 10px; }
 
-            .menu-footer {
-                flex-direction: column-reverse;
-                align-items: flex-start;
-                gap: 30px;
-                padding-bottom: 30px;
-            }
+        /* --- MANUAL EMPTY STATE STYLES --- */
+.empty-state {
+    grid-column: 1 / -1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh; 
+    text-align: center;
+    color: #000000;
+    font-family: 'Dubai', sans-serif;
+}
 
-            .social-icons-wrapper { gap: 20px; }
-        }
+.empty-state i {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    opacity: 0.2;
+}
+
+.empty-state h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
     </style>
 </head>
 
 <body class="music-page">
 
-    <div class="page-heading">Music</div>
-    <div class="nav-trigger light" onclick="toggleMenu()">MENU</div>
+    <div id="glass-preloader">
+        <div class="loading-wrapper">
+            <div class="loading-line-container">
+                <div class="loading-line"></div>
+            </div>
+            <div class="loading-text">LOADING</div>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">Music</div>
+    </header>
+    
+    <div class="nav-trigger" id="menuBtn" onclick="toggleMenu()">MENU</div>
 
     <div class="menu-overlay" id="menu">
         <div class="menu-bg-image" id="menuBg"></div>
-
         <div class="menu-header-label">talent</div>
-
         <div class="submenu-wrapper">
             <div class="submenu-list">
-                <a href="comedy.html" class="submenu" data-bg="https://images.unsplash.com/photo-1475721027785-f74eccf877e2">
-                    <span>&gt;</span> Comedy
-                </a>
-                <a href="Artists.html" class="submenu" data-bg="https://res.cloudinary.com/dgcr7e27r/image/upload/v1769848593/Best-Cameras_bb8kf5.webp">
-                    <span>&gt;</span> Personal Appearance
-                </a>
-                <a href="music.html" class="submenu" data-bg="https://images.unsplash.com/photo-1511379938547-c1f69419868d">
-                    <span>&gt;</span> Music
-                </a>
-                <a href="index.html" class="submenu" data-bg="https://images.unsplash.com/photo-1493225255756-d9584f8606e9">
-                    <span>&gt;</span> Home
-                </a>
+                <a href="comedy.html" class="submenu" data-bg="https://images.unsplash.com/photo-1475721027785-f74eccf877e2"><span>&gt;</span> Comedy</a>
+                <a href="Artists.html" class="submenu" data-bg="https://res.cloudinary.com/dgcr7e27r/image/upload/v1769848593/Best-Cameras_bb8kf5.webp"><span>&gt;</span> Personal Appearance</a>
+                <a href="music.html" class="submenu" data-bg="https://images.unsplash.com/photo-1511379938547-c1f69419868d"><span>&gt;</span> Music</a>
+                <a href="index.html" class="submenu" data-bg="https://images.unsplash.com/photo-1493225255756-d9584f8606e9"><span>&gt;</span> Home</a>
             </div>
-
             <div class="artist-info-box">
                 <h4>Artist Manager/Agent</h4>
                 <p>(AHR-tist MAN-uh-jer)</p>
-                <p style="margin-top:8px;">
-                   A person responsible for developing a comedian’s long-term strategy, advising on branding and creative choices, managing relationships with venues, agents, and other industry professionals, and collaborating with booking agents who secure live appearances, negotiate show terms, and coordinate the logistics of performances.
-                </p>
+                <p style="margin-top:8px;">Representation and strategic growth for musicians and live performers.</p>
             </div>
         </div>
-
         <div class="menu-footer">
             <div class="social-icons-wrapper">
                 <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
@@ -313,36 +329,38 @@
     </div>
 
     <main class="roster-grid" id="musicGrid"></main>
+    <main class="roster-grid" id="musicGrid">
+    <div class="empty-state" id="musicStatus">
+        <i class="fa-solid fa-compact-disc"></i>
+        <h2>Nothing Here</h2>
+        <p>Our music roster is currently being updated. Please check back later.</p>
+    </div>
+</main>
 
     <script>
         function toggleMenu() {
             const menu = document.getElementById('menu');
-            const trigger = document.querySelector('.nav-trigger');
+            const btn = document.getElementById('menuBtn');
             menu.classList.toggle('active');
-            
             if (menu.classList.contains('active')) {
-                trigger.textContent = 'close';
-                trigger.classList.remove('light');
-                trigger.classList.add('dark');
+                btn.textContent = 'close';
+                btn.classList.add('active');
             } else {
-                trigger.textContent = 'menu';
-                trigger.classList.remove('dark');
-                trigger.classList.add('light');
+                btn.textContent = 'menu';
+                btn.classList.remove('active');
             }
         }
 
         document.querySelectorAll('.submenu').forEach(item => {
             item.addEventListener('mouseenter', () => {
-                document.getElementById('menuBg').style.backgroundImage =
-                    `url('${item.dataset.bg}')`;
+                document.getElementById('menuBg').style.backgroundImage = `url('${item.dataset.bg}')`;
             });
         });
     </script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, where, orderBy } 
-        from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAGbc3hE5qsN8axCsRNaNH4CNSDp3Yave8",
@@ -357,39 +375,50 @@
             const grid = document.getElementById("musicGrid");
             grid.innerHTML = "";
 
-           const q = query(
-            collection(db, "artists"),
-            where("active", "==", true),
-            where("section", "==", "music"),
-            orderBy("order", "asc")
-        );
+            const q = query(
+                collection(db, "artists"),
+                where("active", "==", true),
+                where("section", "in", ["music", "both"]),
+                orderBy("order", "asc")
+            );
 
             try {
                 const snapshot = await getDocs(q);
+                const fragment = document.createDocumentFragment();
 
                 snapshot.forEach(docSnap => {
                     const artist = docSnap.data();
+                    let imgUrl = artist.imageUrl || 'https://via.placeholder.com/500';
 
-                    if (artist.section === "music") {
-                        const a = document.createElement("a");
-                        a.className = "artist-link";
-                        a.href = `profile.html?id=${docSnap.id}&from=music`;
-                        a.innerHTML = `
-                            <div class="artist-card">
-                                <img src="${artist.imageUrl || 'https://via.placeholder.com/500'}" alt="${artist.name}">
-                            </div>
-                            <div class="artist-name">${artist.name}</div>
-                        `;
-                        grid.appendChild(a);
+                    // Cloudinary optimization
+                    if (imgUrl.includes('res.cloudinary.com')) {
+                        imgUrl = imgUrl.replace('/upload/', '/upload/w_600,q_auto,f_auto/');
                     }
+
+                    const a = document.createElement("a");
+                    a.className = "artist-link";
+                    a.href = `profile.html?id=${docSnap.id}&from=music`;
+                    a.innerHTML = `
+                        <div class="artist-card">
+                            <img src="${imgUrl}" alt="${artist.name}" loading="lazy" decoding="async" onload="this.classList.add('loaded')">
+                        </div>
+                        <div class="artist-name">${artist.name}</div>
+                    `;
+                    fragment.appendChild(a);
                 });
+                grid.appendChild(fragment);
             } catch (error) {
                 console.error("Error loading roster:", error);
+            } finally {
+                const preloader = document.getElementById('glass-preloader');
+                if (preloader) {
+                    preloader.classList.add('hidden');
+                    setTimeout(() => preloader.style.display = 'none', 800);
+                }
             }
         }
 
         window.addEventListener("DOMContentLoaded", loadMusicArtists);
     </script>
-
 </body>
 </html>

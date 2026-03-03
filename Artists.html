@@ -207,6 +207,7 @@
             overflow: hidden;
             border: 4px solid transparent;
             transition: border-color 0.2s ease;
+            background-color: #f5f5f7; /* Sleek Apple-like grey placeholder */
         }
 
         .artist-card img {
@@ -217,6 +218,15 @@
             width: 100%; 
             height: 100%;
             object-fit: cover;
+            
+            /* Smooth Image Loading */
+            opacity: 0; /* Hide it initially */
+            transition: opacity 0.5s ease-in-out; /* The fade effect */
+        }
+
+        /* This class gets added by JS when the image finishes downloading */
+        .artist-card img.loaded {
+            opacity: 1;
         }
 
         .artist-name {
@@ -284,10 +294,94 @@
                 padding-bottom: 30px;
             }
         }
+
+        /* --- PREMIUM FROSTED GLASS PRELOADER STYLES --- */
+        #glass-preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            /* Premium Frosted Glass */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(240, 245, 255, 0.5) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transform: translateZ(0); /* Hardware acceleration to prevent lag */
+        }
+
+        .loading-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .loading-line-container {
+            width: 220px;
+            height: 3px;
+            background: rgba(0, 51, 102, 0.08); 
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); 
+        }
+
+        .loading-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 50%;
+            background: linear-gradient(90deg, transparent, #003366, #00509e, transparent);
+            border-radius: 4px;
+            
+            /* GPU Accelerated Animation */
+            will-change: transform;
+            animation: elasticSlide 1.8s infinite cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        .loading-text {
+            font-family: 'Dubai', sans-serif;
+            color: #003366;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            animation: pulseText 1.8s infinite ease-in-out;
+        }
+
+        @keyframes elasticSlide {
+            0% { transform: translateX(-150%) scaleX(1); }
+            50% { transform: translateX(20%) scaleX(1.6); }
+            100% { transform: translateX(200%) scaleX(1); }
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.9; }
+        }
+
+        #glass-preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
     </style>
 </head>
 
 <body class="personal-page">
+
+    <div id="glass-preloader">
+        <div class="loading-wrapper">
+            <div class="loading-line-container">
+                <div class="loading-line"></div>
+            </div>
+            <div class="loading-text">LOADING</div>
+        </div>
+    </div>
 
 <header>
     <div class="logo">Personal Appearance</div>
@@ -396,26 +490,52 @@
 
         try {
             const snapshot = await getDocs(q);
+            
+            // 1. Create a Document Fragment to prevent rendering lag
+            const fragment = document.createDocumentFragment();
 
             snapshot.forEach(docSnap => {
                 const artist = docSnap.data();
 
                 // Show Personal OR Both
                 if (artist.section === "personal" || artist.section === "both") {
+                    
+                    // --- IMAGE OPTIMIZATION LOGIC ---
+                    let optimizedImgUrl = artist.imageUrl || 'https://via.placeholder.com/500';
+                    
+                    // If the image is from Cloudinary, force it to be small, fast, and auto-formatted
+                    if (optimizedImgUrl.includes('res.cloudinary.com')) {
+                        optimizedImgUrl = optimizedImgUrl.replace('/upload/', '/upload/w_600,q_auto,f_auto/');
+                    }
+
                     const a = document.createElement("a");
                     a.className = "artist-link";
                     a.href = `profile.html?id=${docSnap.id}&from=personal`;
                     a.innerHTML = `
                         <div class="artist-card">
-                            <img src="${artist.imageUrl || 'https://via.placeholder.com/500'}" alt="${artist.name}">
+                            <img src="${optimizedImgUrl}" alt="${artist.name}" loading="lazy" decoding="async" onload="this.classList.add('loaded')">
                         </div>
                         <div class="artist-name">${artist.name}</div>
                     `;
-                    grid.appendChild(a);
+                    // Append to the fragment (memory) instead of the screen directly
+                    fragment.appendChild(a);
                 }
             });
+            
+            // 3. Append everything to the screen all at once
+            grid.appendChild(fragment);
+
         } catch (error) {
             console.error("Error loading roster:", error);
+        } finally {
+            // --- THIS IS THE PRELOADER LOGIC ---
+            // Hide the preloader once the data is done loading (or if an error occurs)
+            const preloader = document.getElementById('glass-preloader');
+            if (preloader) {
+                preloader.classList.add('hidden');
+                // Remove it entirely from the DOM after the fade-out transition
+                setTimeout(() => preloader.style.display = 'none', 800);
+            }
         }
     }
 
