@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-35DBJHNZH4"></script>
     <script>
@@ -25,11 +25,10 @@
     <meta property="og:image" content="https://res.cloudinary.com/dgcr7e27r/image/upload/v1772279245/Screenshot_2026-02-28_165145_d4uibl.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   
+    
     <link rel="canonical" href="https://kendrickartists.com/">
     <style>
         
-     
         /* --- RESET & FONTS --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -46,9 +45,10 @@
             min-height: 100vh;
             min-height: 100dvh; 
             overflow: hidden;
-            background-color: #fff; 
+            background-color: #000; 
         }
 
+        /* 1. Base Video (Bricks) */
         .bg-video {
             position: absolute;
             top: 50%;
@@ -61,22 +61,58 @@
             pointer-events: none;
         }
 
-        .mask-layer {
+        /* 2. Masked Layer (The white background, top video, and swirl) */
+        .masked-content {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 2;
+            mask: url(#text-mask);
+            -webkit-mask: url(#text-mask); /* Safari Support */
         }
 
-        svg { width: 100%; height: 100%; }
+        .white-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #fff;
+            z-index: 1;
+        }
 
-        svg text {
+        .top-video {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%; min-height: 100%;
+            object-fit: cover;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .swirl-img {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 2400px;
+            margin-top: -75px; /* Offset to match your original positioning */
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* 3. SVG Mask Definition (Hidden from layout) */
+        .mask-svg {
+            position: absolute;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .mask-svg text {
             font-size: 150px;
             letter-spacing: 6px;
             font-family: 'Oswald','Segoe UI',sans-serif;
-            font-weight: 900;
+            font-weight: 700;
         }
 
         .bottom-text {
@@ -242,8 +278,6 @@
         
         .contact-btn:hover { background: #e0e0e0; }
 
-        .swirl-img { pointer-events: none; }
-
         .stylish-font{
             font-family: 'Great Vibes', cursive;
             font-size: 80px;
@@ -291,12 +325,13 @@
         
         /* Tablet Landscape & Standard Tablets */
         @media (max-width: 1024px) {
-            svg text { 
+            .mask-svg text { 
                 font-size: 120px; 
                 letter-spacing: 4px; 
             }
+            .swirl-img { width: 1600px; margin-top: -50px; }
             .submenu { font-size: 2.5rem; }
-            .artist-info-box { display: none; } /* Hide info box on tablets to keep it clean */
+            .artist-info-box { display: none; } 
             .bottom-text { font-size: 1rem; }
             .seo-section { padding: 80px 8%; }
             .seo-section h2 { font-size: 2rem; }
@@ -307,7 +342,7 @@
             .menu-overlay { padding: 8%; }
             .submenu { font-size: 2rem; }
             .submenu span { margin-right: 15px; }
-            svg text { font-size: 100px; } /* Slightly smaller text so stacking fits nicely */
+            .mask-svg text { font-size: 100px; } 
             
             .seo-section { padding: 60px 6%; }
             .seo-section h2 { font-size: 1.7rem; }
@@ -316,10 +351,9 @@
 
         /* Mobile Phones */
         @media (max-width: 480px) {
-            svg text {
+            .mask-svg text {
                 font-size: 85px;
                 letter-spacing: 5px;
-                font-weight: 800;
             }
 
             .bottom-text { 
@@ -381,9 +415,9 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: #fff;
-            font-family: 'Dubai', sans-serif;
+            font-family: 'Oswald', sans-serif;
             font-size: 2rem;
-            font-weight: 900;
+            font-weight: 700;
             letter-spacing: 6px;
             z-index: 2;
             transition: opacity 0.3s ease; 
@@ -468,32 +502,24 @@
             <source src="https://res.cloudinary.com/dgcr7e27r/video/upload/v1769517514/Video_Project_1_1_lduqak.mp4" type="video/mp4">
         </video>
 
-        <div class="mask-layer">
-         <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 1920 1080" style="width:100%;height:100%;">
-                <defs>
-                    <mask id="text-mask">
-                        <rect width="100%" height="100%" fill="white"/>
-                        <text id="heroText" x="960" y="540" text-anchor="middle" dominant-baseline="middle" fill="black" stroke="black">
-                            KENDRICK ARTISTS
-                        </text>
-                    </mask>
-                </defs>
-                
-                <path d="M0,150 L300,130 L500,50 L750,80 L960,20 L1200,80 L1500,50 L1920,150 L1920,0 L0,0 Z" fill="black" />
-                
-                <g mask="url(#text-mask)">
-                  <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                  <foreignObject x="0" y="0" width="100%" height="100%">
-                    <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%;">
-                     <video autoplay muted loop playsinline webkit-playsinline preload="auto" style="width:100%; height:100%; object-fit:cover; display:block;">
-                        <source src="https://res.cloudinary.com/dgcr7e27r/video/upload/v1771670959/Video_Project_2_1_kru9pk.mp4" type="video/mp4">
-                      </video>
-                    </div>
-                  </foreignObject>
-                 <image id="swirlImage" href="Assects/swirl.png" class="swirl-img" x="-240" y="-735" width="2400" height="2400" opacity="1" preserveAspectRatio="xMidYMid meet" />
-                </g>
-            </svg>
+        <div class="masked-content">
+            <div class="white-bg"></div>
+            <video class="top-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
+                <source src="https://res.cloudinary.com/dgcr7e27r/video/upload/v1771670959/Video_Project_2_1_kru9pk.mp4" type="video/mp4">
+            </video>
+            <img id="swirlImage" src="Assects/swirl.png" class="swirl-img" alt="Design Swirl">
         </div>
+
+        <svg class="mask-svg">
+            <defs>
+                <mask id="text-mask">
+                    <rect width="100%" height="100%" fill="white"/>
+                    <text id="heroText" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="black">
+                        KENDRICK ARTISTS
+                    </text>
+                </mask>
+            </defs>
+        </svg>
 
         <div class="bottom-text">AN ENTERTAINMENT COMPANY</div>
     </div>
@@ -547,38 +573,26 @@
             }, 1200);
         });
 
+        /* --- UPDATED RESPONSIVE TEXT LOGIC --- */
         function updateHeroText() {
             var heroText = document.getElementById("heroText");
-            var swirl = document.getElementById("swirlImage");
 
+            // Notice we use x="50%" instead of absolute numbers for perfect centering
             if (window.innerWidth <= 480) {
                 // MOBILE LAYOUT
                 heroText.innerHTML =
-                    '<tspan x="960" dy="-30">KENDRICK</tspan>' +            
-                    '<tspan x="960" dy="110">ARTISTS</tspan>';
+                    '<tspan x="50%" dy="-30">KENDRICK</tspan>' +            
+                    '<tspan x="50%" dy="110">ARTISTS</tspan>';
 
             } else if (window.innerWidth <= 1024) {
                 // TABLET LAYOUT
-                // Text is stacked so it fits in a portrait orientation without chopping edges off
                 heroText.innerHTML =
-                    '<tspan x="960" dy="-40">KENDRICK</tspan>' +            
-                    '<tspan x="960" dy="120">ARTISTS</tspan>';
-
-                // Position the swirl appropriately for the stacked tablet text
-                swirl.setAttribute("width", "1600");
-                swirl.setAttribute("height", "1600");
-                swirl.setAttribute("x", "160");
-                swirl.setAttribute("y", "-260");
+                    '<tspan x="50%" dy="-40">KENDRICK</tspan>' +            
+                    '<tspan x="50%" dy="120">ARTISTS</tspan>';
                 
             } else {
                 // DESKTOP LAYOUT
                 heroText.innerHTML = "KENDRICK ARTISTS";
-
-                // Return swirl to its natural desktop size/position
-                swirl.setAttribute("width", "2400");
-                swirl.setAttribute("height", "2400");
-                swirl.setAttribute("x", "-240");
-                swirl.setAttribute("y", "-735");
             }
         }
 
