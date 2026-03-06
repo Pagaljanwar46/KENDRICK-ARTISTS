@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-35DBJHNZH4"></script>
     <script>
@@ -13,8 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kendrick Artists – Talent & Entertainment Management Company</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
 
     <meta name="description" content="Kendrick Artists is a full-service entertainment company representing comedians, musicians, and talent for live events, tours, and personal appearances.">
     <meta property="og:title" content="Kendrick Artists">
@@ -28,14 +29,14 @@
     <link rel="canonical" href="https://kendrickartists.com/">
     <style>
         
-
+     
         /* --- RESET & FONTS --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background-color: #000;
-            overflow-x: hidden; /* Prevents scroll bounce on mobile */
+            overflow-x: hidden; 
         }
 
         /* --- HERO SECTION --- */
@@ -43,7 +44,6 @@
             position: relative;
             width: 100%;
             min-height: 100vh;
-            /* Use safe-area-inset to handle iOS notches and bottom bars */
             min-height: 100dvh; 
             overflow: hidden;
             background-color: #fff; 
@@ -58,6 +58,7 @@
             min-height: 100%;
             z-index: 1;
             object-fit: cover;
+            pointer-events: none;
         }
 
         .mask-layer {
@@ -72,9 +73,9 @@
         svg { width: 100%; height: 100%; }
 
         svg text {
-            font-size: 190px;
+            font-size: 150px;
             letter-spacing: 6px;
-            font-family: 'Dubai','Segoe UI',sans-serif;
+            font-family: 'Oswald','Segoe UI',sans-serif;
             font-weight: 900;
         }
 
@@ -107,14 +108,14 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             font-family: 'Dubai', sans-serif;
-            padding: 10px; /* Better touch target for mobile */
+            padding: 10px; 
             transition: color 0.3s ease;
         }
 
         .nav-trigger.light { color: white; }
         .nav-trigger.dark { color: white; left: auto; right: 5%; transform: none; }
 
-        /* --- MENU OVERLAY (Flexbox Refactor) --- */
+        /* --- MENU OVERLAY --- */
         .menu-overlay {
             position: fixed;
             top: 0;
@@ -142,7 +143,7 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            opacity: 0; /* Default hidden */
+            opacity: 0; 
             transition: opacity 0.5s ease, background-image 0.4s ease-in-out;
             z-index: -1;
             background-image: url('https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=1920');
@@ -156,7 +157,7 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             font-weight: 700;
-            margin-bottom: auto; /* Pushes content down */
+            margin-bottom: auto; 
             padding-top: 20px;
         }
 
@@ -165,7 +166,7 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: auto; /* Pushes footer down */
+            margin-bottom: auto; 
         }
 
         .submenu-list {
@@ -201,7 +202,7 @@
         .artist-info-box h4 { font-size: 17px; font-weight: 900; }
         .artist-info-box p { font-size: 13px; font-weight: 700; opacity: 0.8;}
 
-        /* --- MENU FOOTER (Fixes mobile overlap) --- */
+        /* --- MENU FOOTER --- */
         .menu-footer {
             display: flex;
             justify-content: space-between;
@@ -220,7 +221,7 @@
             font-size: 1.2rem;
             transition: transform 0.3s ease, color 0.3s ease;
             text-decoration: none;
-            padding: 5px; /* Better touch target */
+            padding: 5px; 
         }
 
         .social-container a:hover {
@@ -243,21 +244,77 @@
 
         .swirl-img { pointer-events: none; }
 
+        .stylish-font{
+            font-family: 'Great Vibes', cursive;
+            font-size: 80px;
+        }
+
+        /* --- SEO CONTENT SECTION (Default Desktop) --- */
+        .seo-section{
+            background:#838383;
+            padding:100px 10%;
+            color:#000;
+            font-family:'Dubai',sans-serif;
+        }
+
+        .seo-section h2{
+            font-size:2.5rem;
+            margin-bottom:20px;
+            font-weight:900;
+        }
+
+        .seo-section h3{
+            font-size:1.6rem;
+            margin-top:30px;
+            margin-bottom:10px;
+        }
+
+        .seo-section p{
+            font-size:1.05rem;
+            line-height:1.8;
+            max-width:900px;
+            margin-bottom:20px;
+        }
+
+        .seo-section ul{
+            margin-top:10px;
+            padding-left:20px;
+        }
+
+        .seo-section li{
+            margin-bottom:8px;
+            font-size:1rem;
+        }
+
 
         /* --- RESPONSIVE MEDIA QUERIES --- */
+        
+        /* Tablet Landscape & Standard Tablets */
         @media (max-width: 1024px) {
-            svg text { font-size: 120px; letter-spacing: 4px; }
+            svg text { 
+                font-size: 120px; 
+                letter-spacing: 4px; 
+            }
             .submenu { font-size: 2.5rem; }
             .artist-info-box { display: none; } /* Hide info box on tablets to keep it clean */
             .bottom-text { font-size: 1rem; }
+            .seo-section { padding: 80px 8%; }
+            .seo-section h2 { font-size: 2rem; }
         }
 
+        /* Tablet Portrait & Large Phones */
         @media (max-width: 768px) {
             .menu-overlay { padding: 8%; }
             .submenu { font-size: 2rem; }
             .submenu span { margin-right: 15px; }
+            svg text { font-size: 100px; } /* Slightly smaller text so stacking fits nicely */
+            
+            .seo-section { padding: 60px 6%; }
+            .seo-section h2 { font-size: 1.7rem; }
+            .seo-section p { font-size: 0.95rem; }
         }
 
+        /* Mobile Phones */
         @media (max-width: 480px) {
             svg text {
                 font-size: 85px;
@@ -267,7 +324,7 @@
 
             .bottom-text { 
                 font-size: 0.85rem; 
-                bottom: 25px; /* Moves it up slightly away from iOS swipe bar */
+                bottom: 25px; 
             }
 
             .menu-overlay { padding: 10% 6%; }
@@ -279,7 +336,7 @@
             .submenu span { margin-right: 10px; }
 
             .menu-footer {
-                flex-direction: column-reverse; /* Stacks button above socials */
+                flex-direction: column-reverse; 
                 align-items: flex-start;
                 gap: 30px;
                 padding-bottom: 30px;
@@ -287,20 +344,23 @@
 
             .social-container { gap: 20px; }
             .nav-trigger.dark { right: 20px; top: max(3vh, 15px); }
+
+            /* Hide the red swirl completely on mobile */
+            .swirl-img { display: none; }
         }
 
         /* --- SPLIT SCREEN PRELOADER STYLES --- */
         #preloader {
-         position: fixed;
-         top: 0;
-         left: 0;
-         width: 100%;
-         min-height: 100vh;
-         min-height: 100dvh;
-         z-index: 99999;
-         display: flex;
-         pointer-events: none;
-      }
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            z-index: 99999;
+            display: flex;
+            pointer-events: none;
+        }
 
         .preloader-top, .preloader-bottom {
             position: absolute;
@@ -308,18 +368,12 @@
             width: 100%;
             height: 50%;
             background-color: #000;
-            /* The cubic-bezier gives it that cinematic ease-in-out speed */
             transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); 
             z-index: 1;
         }
 
-        .preloader-top {
-            top: 0;
-        }
-
-        .preloader-bottom {
-            bottom: 0;
-        }
+        .preloader-top { top: 0; }
+        .preloader-bottom { bottom: 0; }
 
         .preloader-logo {
             position: absolute;
@@ -332,103 +386,28 @@
             font-weight: 900;
             letter-spacing: 6px;
             z-index: 2;
-            transition: opacity 0.3s ease; /* Fades out slightly faster */
+            transition: opacity 0.3s ease; 
             text-align: center;
         }
 
-        /* --- ANIMATION TRIGGER CLASSES --- */
-        /* 1. Fade out the logo first */
-        #preloader.loaded .preloader-logo {
-            opacity: 0; 
-        }
-
-        /* 2. Slide the top half up after a tiny delay */
-        #preloader.loaded .preloader-top {
-            transform: translateY(-100%);
-            transition-delay: 0.3s; 
-        }
-
-        /* 3. Slide the bottom half down after a tiny delay */
-        #preloader.loaded .preloader-bottom {
-            transform: translateY(100%);
-            transition-delay: 0.3s;
-        }
-
-        .bg-video {
-    pointer-events: none;
-}
-
-
-.stylish-font{
-    font-family: 'Great Vibes', cursive;
-    font-size: 80px;
-}
-
-/* SEO CONTENT SECTION */
-
-.seo-section{
-    background:#838383;
-    padding:100px 10%;
-    color:#000;
-    font-family:'Dubai',sans-serif;
-}
-
-.seo-section h2{
-    font-size:2.5rem;
-    margin-bottom:20px;
-    font-weight:900;
-}
-
-.seo-section h3{
-    font-size:1.6rem;
-    margin-top:30px;
-    margin-bottom:10px;
-}
-
-.seo-section p{
-    font-size:1.05rem;
-    line-height:1.8;
-    max-width:900px;
-    margin-bottom:20px;
-}
-
-.seo-section ul{
-    margin-top:10px;
-    padding-left:20px;
-}
-
-.seo-section li{
-    margin-bottom:8px;
-    font-size:1rem;
-}
-
-
-.seo-section{
-    padding:60px 6%;
-}
-
-.seo-section h2{
-    font-size:1.7rem;
-}
-
-.seo-section p{
-    font-size:0.95rem;
-}
+        #preloader.loaded .preloader-logo { opacity: 0; }
+        #preloader.loaded .preloader-top { transform: translateY(-100%); transition-delay: 0.3s; }
+        #preloader.loaded .preloader-bottom { transform: translateY(100%); transition-delay: 0.3s; }
     </style>
 
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Kendrick Artists",
-  "url": "https://kendrickartists.com",
-  "logo": "https://kendrickartists.com/favicon.png",
-  "description": "Talent and entertainment management company representing comedians, musicians, and live performers.",
-  "sameAs": [
-    "https://www.instagram.com/kendrickartists/"
-  ]
-}
-</script>
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Kendrick Artists",
+      "url": "https://kendrickartists.com",
+      "logo": "https://kendrickartists.com/favicon.png",
+      "description": "Talent and entertainment management company representing comedians, musicians, and live performers.",
+      "sameAs": [
+        "https://www.instagram.com/kendrickartists/"
+      ]
+    }
+    </script>
 </head>
 
 <body>
@@ -442,8 +421,8 @@
     </div>
 
     <h1 style="position:absolute; left:-9999px;">
-Kendrick Artists – Talent & Entertainment Management Company
-</h1>
+        Kendrick Artists – Talent & Entertainment Management Company
+    </h1>
 
     <div class="nav-trigger light" onclick="toggleMenu()">ARTISTS</div>
 
@@ -537,22 +516,19 @@ Kendrick Artists – Talent & Entertainment Management Company
 
         const submenus = document.querySelectorAll('.submenu');
         const menuBg = document.getElementById('menuBg');
-       submenus.forEach(item => {
+        submenus.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const bgUrl = item.getAttribute('data-bg');
+                if (bgUrl) { menuBg.style.backgroundImage = `url('${bgUrl}')`; }
+            });
 
-    item.addEventListener('mouseenter', () => {
-        const bgUrl = item.getAttribute('data-bg');
-        if (bgUrl) { menuBg.style.backgroundImage = `url('${bgUrl}')`; }
-    });
-
-    item.addEventListener('touchstart', () => {
-        const bgUrl = item.getAttribute('data-bg');
-        if (bgUrl) { menuBg.style.backgroundImage = `url('${bgUrl}')`; }
-    });
-
-});
+            item.addEventListener('touchstart', () => {
+                const bgUrl = item.getAttribute('data-bg');
+                if (bgUrl) { menuBg.style.backgroundImage = `url('${bgUrl}')`; }
+            });
+        });
 
         /* --- PRELOADER LOGIC --- */
-        // Set your minimum time here (3000 = 3 seconds)
         const minimumTime = new Promise(resolve => setTimeout(resolve, 1000));
 
         const pageLoaded = new Promise(resolve => {
@@ -565,11 +541,7 @@ Kendrick Artists – Talent & Entertainment Management Company
 
         Promise.all([minimumTime, pageLoaded]).then(() => {
             const preloader = document.getElementById('preloader');
-            
-            // Trigger the cinematic split-screen animation
             preloader.classList.add('loaded');
-            
-            // Wait for animations to finish (0.3s delay + 0.8s slide = 1.1s total) before removing
             setTimeout(() => {
                 preloader.style.display = 'none';
             }, 1200);
@@ -580,19 +552,29 @@ Kendrick Artists – Talent & Entertainment Management Company
             var swirl = document.getElementById("swirlImage");
 
             if (window.innerWidth <= 480) {
-                // Tighter spacing for the stacked mobile text
+                // MOBILE LAYOUT
                 heroText.innerHTML =
                     '<tspan x="960" dy="-30">KENDRICK</tspan>' +            
                     '<tspan x="960" dy="110">ARTISTS</tspan>';
 
-                swirl.setAttribute("width", "500");
-                swirl.setAttribute("height", "500");
-                swirl.setAttribute("x", "710");
-                swirl.setAttribute("y", "310");
+            } else if (window.innerWidth <= 1024) {
+                // TABLET LAYOUT
+                // Text is stacked so it fits in a portrait orientation without chopping edges off
+                heroText.innerHTML =
+                    '<tspan x="960" dy="-40">KENDRICK</tspan>' +            
+                    '<tspan x="960" dy="120">ARTISTS</tspan>';
 
+                // Position the swirl appropriately for the stacked tablet text
+                swirl.setAttribute("width", "1600");
+                swirl.setAttribute("height", "1600");
+                swirl.setAttribute("x", "160");
+                swirl.setAttribute("y", "-260");
+                
             } else {
+                // DESKTOP LAYOUT
                 heroText.innerHTML = "KENDRICK ARTISTS";
 
+                // Return swirl to its natural desktop size/position
                 swirl.setAttribute("width", "2400");
                 swirl.setAttribute("height", "2400");
                 swirl.setAttribute("x", "-240");
@@ -605,28 +587,28 @@ Kendrick Artists – Talent & Entertainment Management Company
     </script>
 
     <section class="seo-section">
-  <h2 class="stylish-font">Kendrick Artists – Entertainment & Talent Management</h2>
-  <p>
-    Kendrick Artists is a full-service talent and entertainment management company
-    representing comedians, musicians, and live performers across national and
-    international markets. We specialize in tour management, brand partnerships,
-    live event booking, and strategic artist development.
-  </p>
+      <h2 class="stylish-font">Kendrick Artists – Entertainment & Talent Management</h2>
+      <p>
+        Kendrick Artists is a full-service talent and entertainment management company
+        representing comedians, musicians, and live performers across national and
+        international markets. We specialize in tour management, brand partnerships,
+        live event booking, and strategic artist development.
+      </p>
 
-  <p>
-    Our team works closely with venues, promoters, brands, and media partners
-    to create opportunities that grow careers and expand audience reach.
-    From stand-up comedy tours to music performances and corporate appearances,
-    Kendrick Artists provides full representation and long-term career strategy.
-  </p>
+      <p>
+        Our team works closely with venues, promoters, brands, and media partners
+        to create opportunities that grow careers and expand audience reach.
+        From stand-up comedy tours to music performances and corporate appearances,
+        Kendrick Artists provides full representation and long-term career strategy.
+      </p>
 
-  <h3 class="stylish-font">Our Services</h3>
-  <ul>
-    <li>Comedian Representation & Tour Booking</li>
-    <li>Music Talent Management</li>
-    <li>Personal Appearances & Brand Partnerships</li>
-    <li>Corporate & Live Event Booking</li>
-  </ul>
-</section>
+      <h3 class="stylish-font">Our Services</h3>
+      <ul>
+        <li>Comedian Representation & Tour Booking</li>
+        <li>Music Talent Management</li>
+        <li>Personal Appearances & Brand Partnerships</li>
+        <li>Corporate & Live Event Booking</li>
+      </ul>
+    </section>
 </body>
 </html>
