@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-35DBJHNZH4"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -34,16 +35,16 @@
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background-color: #000;
-            overflow: hidden; /* Prevents scroll bounce on mobile */
+            overflow-x: hidden; /* Prevents scroll bounce on mobile */
         }
 
         /* --- HERO SECTION --- */
         .hero-container {
             position: relative;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            min-height: 100vh;
             /* Use safe-area-inset to handle iOS notches and bottom bars */
-            height: 100dvh; 
+            min-height: 100dvh; 
             overflow: hidden;
             background-color: #fff; 
         }
@@ -79,7 +80,7 @@
 
         .bottom-text {
             position: absolute;
-            bottom: 40px;
+            bottom: calc(40px + env(safe-area-inset-bottom));
             left: 50%;
             transform: translateX(-50%);
             z-index: 3;
@@ -119,8 +120,8 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
-            height: 100dvh;
+            min-height: 100vh;
+            min-height: 100dvh;
             background: #000;
             z-index: 999;
             transform: translateY(-100%);
@@ -290,16 +291,16 @@
 
         /* --- SPLIT SCREEN PRELOADER STYLES --- */
         #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            height: 100dvh;
-            z-index: 99999;
-            display: flex;
-            pointer-events: none; /* Allows clicking once it opens */
-        }
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         min-height: 100vh;
+         min-height: 100dvh;
+         z-index: 99999;
+         display: flex;
+         pointer-events: none;
+      }
 
         .preloader-top, .preloader-bottom {
             position: absolute;
@@ -352,6 +353,67 @@
             transform: translateY(100%);
             transition-delay: 0.3s;
         }
+
+        .bg-video {
+    pointer-events: none;
+}
+
+
+.stylish-font{
+    font-family: 'Great Vibes', cursive;
+    font-size: 80px;
+}
+
+/* SEO CONTENT SECTION */
+
+.seo-section{
+    background:#838383;
+    padding:100px 10%;
+    color:#000;
+    font-family:'Dubai',sans-serif;
+}
+
+.seo-section h2{
+    font-size:2.5rem;
+    margin-bottom:20px;
+    font-weight:900;
+}
+
+.seo-section h3{
+    font-size:1.6rem;
+    margin-top:30px;
+    margin-bottom:10px;
+}
+
+.seo-section p{
+    font-size:1.05rem;
+    line-height:1.8;
+    max-width:900px;
+    margin-bottom:20px;
+}
+
+.seo-section ul{
+    margin-top:10px;
+    padding-left:20px;
+}
+
+.seo-section li{
+    margin-bottom:8px;
+    font-size:1rem;
+}
+
+
+.seo-section{
+    padding:60px 6%;
+}
+
+.seo-section h2{
+    font-size:1.7rem;
+}
+
+.seo-section p{
+    font-size:0.95rem;
+}
     </style>
 
     <script type="application/ld+json">
@@ -423,12 +485,12 @@ Kendrick Artists – Talent & Entertainment Management Company
     </div>
 
     <div class="hero-container">
-        <video class="bg-video" autoplay muted loop playsinline>
+        <video class="bg-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
             <source src="https://res.cloudinary.com/dgcr7e27r/video/upload/v1769517514/Video_Project_1_1_lduqak.mp4" type="video/mp4">
         </video>
 
         <div class="mask-layer">
-          <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 1920 1080">
+         <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 1920 1080" style="width:100%;height:100%;">
                 <defs>
                     <mask id="text-mask">
                         <rect width="100%" height="100%" fill="white"/>
@@ -444,7 +506,7 @@ Kendrick Artists – Talent & Entertainment Management Company
                   <rect x="0" y="0" width="100%" height="100%" fill="white" />
                   <foreignObject x="0" y="0" width="100%" height="100%">
                     <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%;">
-                      <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
+                     <video autoplay muted loop playsinline webkit-playsinline preload="auto" style="width:100%; height:100%; object-fit:cover; display:block;">
                         <source src="https://res.cloudinary.com/dgcr7e27r/video/upload/v1771670959/Video_Project_2_1_kru9pk.mp4" type="video/mp4">
                       </video>
                     </div>
@@ -475,12 +537,19 @@ Kendrick Artists – Talent & Entertainment Management Company
 
         const submenus = document.querySelectorAll('.submenu');
         const menuBg = document.getElementById('menuBg');
-        submenus.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                const bgUrl = item.getAttribute('data-bg');
-                if (bgUrl) { menuBg.style.backgroundImage = `url('${bgUrl}')`; }
-            });
-        });
+       submenus.forEach(item => {
+
+    item.addEventListener('mouseenter', () => {
+        const bgUrl = item.getAttribute('data-bg');
+        if (bgUrl) { menuBg.style.backgroundImage = `url('${bgUrl}')`; }
+    });
+
+    item.addEventListener('touchstart', () => {
+        const bgUrl = item.getAttribute('data-bg');
+        if (bgUrl) { menuBg.style.backgroundImage = `url('${bgUrl}')`; }
+    });
+
+});
 
         /* --- PRELOADER LOGIC --- */
         // Set your minimum time here (3000 = 3 seconds)
@@ -535,8 +604,8 @@ Kendrick Artists – Talent & Entertainment Management Company
         window.addEventListener("resize", updateHeroText);
     </script>
 
-    <section style="background:#fff; padding:80px 10%; color:#000;">
-  <h2>Kendrick Artists – Entertainment & Talent Management</h2>
+    <section class="seo-section">
+  <h2 class="stylish-font">Kendrick Artists – Entertainment & Talent Management</h2>
   <p>
     Kendrick Artists is a full-service talent and entertainment management company
     representing comedians, musicians, and live performers across national and
@@ -551,7 +620,7 @@ Kendrick Artists – Talent & Entertainment Management Company
     Kendrick Artists provides full representation and long-term career strategy.
   </p>
 
-  <h3>Our Services</h3>
+  <h3 class="stylish-font">Our Services</h3>
   <ul>
     <li>Comedian Representation & Tour Booking</li>
     <li>Music Talent Management</li>
