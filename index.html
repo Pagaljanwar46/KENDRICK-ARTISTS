@@ -455,9 +455,9 @@ Kendrick Artists – Talent & Entertainment Management Company
         <div class="mask-layer">
           <svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 1920 1080">
     <defs>
-        <mask id="text-mask">
+        <mask id="text-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
             <rect width="1920" height="1080" fill="white"/>
-            <text id="heroText" x="960" y="540" text-anchor="middle" dominant-baseline="middle" fill="black" stroke="black">
+            <text id="heroText" x="960" y="540" text-anchor="middle" fill="black" stroke="black">
                 KENDRICK ARTISTS
             </text>
         </mask>
@@ -465,18 +465,17 @@ Kendrick Artists – Talent & Entertainment Management Company
     
     <path d="M0,150 L300,130 L500,50 L750,80 L960,20 L1200,80 L1500,50 L1920,150 L1920,0 L0,0 Z" fill="black" />
     
-    <g mask="url(#text-mask)">
-        <rect x="0" y="0" width="1920" height="1080" fill="white" />
-        
-        <foreignObject x="0" y="0" width="1920" height="1080">
-            <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%; position: relative; -webkit-transform: translateZ(0); transform: translateZ(0); overflow: hidden;">
-                <video autoplay muted loop playsinline webkit-playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
-                    <source src="https://res.cloudinary.com/dgcr7e27r/video/upload/v1771670959/Video_Project_2_1_kru9pk.mp4" type="video/mp4">
-                </video>
-            </div>
-        </foreignObject>
-        <image id="swirlImage" href="Assects/swirl.png" class="swirl-img" x="-240" y="-735" width="2400" height="2400" opacity="1" preserveAspectRatio="xMidYMid meet" />
-    </g>
+    <rect x="0" y="0" width="1920" height="1080" fill="white" mask="url(#text-mask)" />
+    
+    <foreignObject x="0" y="0" width="1920" height="1080" mask="url(#text-mask)">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%; position: relative; -webkit-transform: translateZ(0); transform: translateZ(0); overflow: hidden;">
+            <video autoplay muted loop playsinline webkit-playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
+                <source src="https://res.cloudinary.com/dgcr7e27r/video/upload/v1771670959/Video_Project_2_1_kru9pk.mp4" type="video/mp4">
+            </video>
+        </div>
+    </foreignObject>
+    
+    <image id="swirlImage" href="Assects/swirl.png" class="swirl-img" x="-240" y="-735" width="2400" height="2400" opacity="1" preserveAspectRatio="xMidYMid meet" mask="url(#text-mask)" />
 </svg>
         </div>
 
@@ -533,29 +532,34 @@ Kendrick Artists – Talent & Entertainment Management Company
         });
 
         function updateHeroText() {
-            var heroText = document.getElementById("heroText");
-            var swirl = document.getElementById("swirlImage");
+    var heroText = document.getElementById("heroText");
+    var swirl = document.getElementById("swirlImage");
 
-            if (window.innerWidth <= 480) {
-                // Tighter spacing for the stacked mobile text
-                heroText.innerHTML =
-                    '<tspan x="960" dy="-30">KENDRICK</tspan>' +            
-                    '<tspan x="960" dy="110">ARTISTS</tspan>';
+    if (window.innerWidth <= 480) {
+        // Remove desktop offset for mobile
+        heroText.removeAttribute("dy");
+        
+        // Tighter spacing for the stacked mobile text
+        heroText.innerHTML =
+            '<tspan x="960" dy="-30">KENDRICK</tspan>' +            
+            '<tspan x="960" dy="110">ARTISTS</tspan>';
 
-                swirl.setAttribute("width", "500");
-                swirl.setAttribute("height", "500");
-                swirl.setAttribute("x", "710");
-                swirl.setAttribute("y", "310");
+        swirl.setAttribute("width", "500");
+        swirl.setAttribute("height", "500");
+        swirl.setAttribute("x", "710");
+        swirl.setAttribute("y", "310");
 
-            } else {
-                heroText.innerHTML = "KENDRICK ARTISTS";
+    } else {
+        // This SAFELY emulates dominant-baseline="middle" for desktop Safari
+        heroText.setAttribute("dy", "0.35em"); 
+        heroText.innerHTML = "KENDRICK ARTISTS";
 
-                swirl.setAttribute("width", "2400");
-                swirl.setAttribute("height", "2400");
-                swirl.setAttribute("x", "-240");
-                swirl.setAttribute("y", "-735");
-            }
-        }
+        swirl.setAttribute("width", "2400");
+        swirl.setAttribute("height", "2400");
+        swirl.setAttribute("x", "-240");
+        swirl.setAttribute("y", "-735");
+    }
+}
 
         updateHeroText();
         window.addEventListener("resize", updateHeroText);
