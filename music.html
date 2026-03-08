@@ -322,6 +322,151 @@
             }
             .social-icons-wrapper { gap: 20px; }
         }
+
+        /* ================= COMPACT CREAM FOOTER ================= */
+        .site-footer {
+            /* UPDATED: Subtle light cream background */
+            background-color: #fcfaf5; 
+            color: #000;
+            /* Keeps the section compact */
+            padding: 40px 40px 20px; 
+            margin-top: 40px;
+            /* Optional: subtle top border to define the section further */
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            max-width: 1800px;
+            margin: 0 auto;
+            /* Subtle dark border against the cream */
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08); 
+            padding-bottom: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            /* Kendrick & Artists signature blue */
+            color: #003366; 
+        }
+
+        .about-section p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            /* Dark gray for readability on cream */
+            color: rgba(0, 0, 0, 0.7); 
+            max-width: 350px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Dubai', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 15px;
+            /* Subtle headers */
+            color: rgba(0, 0, 0, 0.5); 
+        }
+
+        .footer-email {
+            color: #003366; /* Signature blue */
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        /* Animated underline for the email */
+        .footer-email::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: #003366;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        .footer-email:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-socials a {
+            color: #000;
+            font-size: 1.1rem;
+            opacity: 0.5;
+            transition: opacity 0.3s ease, color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            opacity: 1;
+            /* Turns signature blue on hover */
+            color: #003366; 
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: rgba(0, 0, 0, 0.45);
+            letter-spacing: 0.05em;
+        }
+
+        /* --- FOOTER RESPONSIVE QUERIES --- */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 35px;
+            }
+            .about-section p {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .site-footer {
+                padding: 40px 20px 20px;
+            }
+            .footer-logo {
+                font-size: 1rem;
+            }
+            .footer-email {
+                font-size: 0.95rem;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: left;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 
@@ -378,6 +523,34 @@
     </div>
 </main>
 
+<footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section about-section">
+                <h3 class="footer-logo">Kendrick & Artists</h3>
+                <p>A premier talent management and booking agency representing the absolute best in comedy, music, and personal appearances worldwide.</p>
+            </div>
+            
+            <div class="footer-section contact-section">
+                <h4>Inquiries</h4>
+                <a href="mailto:info@kendrickandartists.com" class="footer-email">info@kendrickandartists.com</a>
+            </div>
+
+            <div class="footer-section social-section">
+                <h4>Follow Us</h4>
+                <div class="footer-socials">
+                    <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Kendrick & Artists. All rights reserved.</p>
+            <p>Designed in Los Angeles</p>
+        </div>
+    </footer>
     <script>
         function toggleMenu() {
             const menu = document.getElementById('menu');

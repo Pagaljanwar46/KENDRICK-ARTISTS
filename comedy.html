@@ -25,43 +25,58 @@
             overflow-x: hidden;
         }
 
-        /* --- HEADER & NAV TRIGGER --- */
-        .page-heading {
+        /* ================= NEW FROSTED HEADER ================= */
+        header {
             position: fixed;
-            top: 30px;
-            left: 40px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid #f0f0f0;
             z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: padding 0.3s ease;
+        }
+
+        .logo {
             font-size: 24px;
             font-weight: 600;
             color: #003366;
             text-transform: lowercase;
             letter-spacing: 0.5px;
-            transition: all 0.3s ease;
+            transition: font-size 0.3s ease;
         }
 
+        /* ================= MENU BUTTON ================= */
         .nav-trigger {
             position: fixed;
-            top: 30px;
-            right: 40px; 
-            z-index: 1000;
-            font-weight: bold;
+            top: 22px; /* Aligns with the logo */
+            right: 40px;
             font-size: 1.1rem;
-            cursor: pointer;
-            text-transform: uppercase;
+            font-weight: bold;
             letter-spacing: 2px;
-            padding: 10px; /* Better touch target */
-            transition: all 0.3s ease;
+            text-transform: uppercase;
+            cursor: pointer;
+            color: #003366;
+            z-index: 1002; /* Keeps it above the menu overlay */
+            padding: 5px; 
+            transition: color 0.3s ease;
         }
 
-        .nav-trigger.light { color: #07315a; } 
-        .nav-trigger.dark { color: white; right: 5%; }
+        .nav-trigger.active {
+            color: white; /* Turns white when overlay is active */
+        }
 
         /* --- FLEXBOX MENU OVERLAY --- */
         .menu-overlay {
             position: fixed;
             inset: 0;
             background: #000;
-            z-index: 999;
+            z-index: 1001; /* Lower than nav-trigger */
             transform: translateY(-100%);
             transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
             display: flex;
@@ -90,7 +105,7 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             font-weight: 700;
-            margin-bottom: auto; /* Pushes content down */
+            margin-bottom: auto;
             padding-top: 20px;
         }
 
@@ -99,7 +114,7 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: auto; /* Pushes footer down */
+            margin-bottom: auto;
         }
 
         .submenu-list {
@@ -187,7 +202,7 @@
             overflow: hidden;
             border: 4px solid transparent;
             transition: border-color 0.3s ease;
-            background-color: #f5f5f7; /* Sleek Apple-like grey placeholder */
+            background-color: #f5f5f7; 
         }
 
         .artist-card img {
@@ -195,16 +210,13 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100%; /* Fixes image scaling */
+            width: 100%; 
             height: 100%;
             object-fit: cover;
-            
-            /* Smooth Image Loading */
-            opacity: 0; /* Hide it initially */
-            transition: opacity 0.5s ease-in-out; /* The fade effect */
+            opacity: 0; 
+            transition: opacity 0.5s ease-in-out; 
         }
 
-        /* This class gets added by JS when the image finishes downloading */
         .artist-card img.loaded {
             opacity: 1;
         }
@@ -220,7 +232,7 @@
         .artist-link {
             text-decoration: none;
             color: inherit;
-            display: block; /* Makes whole block clickable */
+            display: block; 
         }
 
         .artist-link:hover .artist-card { border-color: #003366; }
@@ -230,7 +242,7 @@
         @media (max-width: 1024px) {
             .roster-grid { 
                 grid-template-columns: repeat(3, 1fr); 
-                padding: 100px 30px 40px; 
+                padding: 110px 30px 40px; 
             }
             .submenu { font-size: 2.5rem; }
             .artist-info-box { display: none; }
@@ -239,7 +251,7 @@
         @media (max-width: 768px) {
             .roster-grid { 
                 grid-template-columns: repeat(2, 1fr); 
-                padding: 90px 20px 40px; 
+                padding: 100px 20px 40px; 
                 gap: 20px;
             }
             .menu-overlay { padding: 8%; }
@@ -248,20 +260,18 @@
         }
 
         @media (max-width: 480px) {
-            /* Shrink grid to 2 compact columns for standard phones */
             .roster-grid { 
                 grid-template-columns: repeat(2, 1fr); 
                 gap: 15px; 
-                padding: 80px 15px 30px; 
+                padding: 90px 15px 30px; 
             }
             
-            /* Tighter headers for mobile screen real estate */
-            .page-heading { top: 20px; left: 20px; font-size: 20px; }
-            .nav-trigger { top: 15px; right: 10px; font-size: 1rem; }
+            header { padding: 15px 20px; }
+            .logo { font-size: 18px; }
+            .nav-trigger { top: 17px; right: 20px; font-size: 1rem; }
             
             .artist-name { font-size: 14px; margin-top: 8px; }
 
-            /* Mobile Menu specific stacking */
             .menu-overlay { padding: 10% 6%; }
             .submenu { font-size: 1.8rem; gap: 5px; }
             .submenu span { margin-right: 10px; }
@@ -276,7 +286,7 @@
             .social-icons-wrapper { gap: 20px; }
         }
 
-        /* --- PREMIUM FROSTED GLASS PRELOADER STYLES --- */
+        /* --- PREMIUM FROSTED GLASS PRELOADER --- */
         #glass-preloader {
             position: fixed;
             inset: 0;
@@ -284,31 +294,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            
-            /* Premium Frosted Glass */
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(240, 245, 255, 0.5) 100%);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            
             transition: opacity 0.8s ease, visibility 0.8s ease;
-            transform: translateZ(0); /* Hardware acceleration to prevent lag */
+            transform: translateZ(0); 
         }
 
         .loading-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px; /* Spacing between line and text */
+            gap: 16px; 
         }
 
         .loading-line-container {
             width: 220px;
             height: 3px;
-            background: rgba(0, 51, 102, 0.08); /* Very faint track */
+            background: rgba(0, 51, 102, 0.08); 
             border-radius: 4px;
             overflow: hidden;
             position: relative;
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); /* Slight inner depth */
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); 
         }
 
        .loading-line {
@@ -316,12 +323,10 @@
             top: 0;
             left: 0;
             height: 100%;
-            width: 50%; /* Base width */
+            width: 50%; 
             background: linear-gradient(90deg, transparent, #003366, #00509e, transparent);
             border-radius: 4px;
-            /* Force GPU acceleration */
             will-change: transform; 
-            /* Same smooth timing, but animating transform instead */
             animation: elasticSlide 1.8s infinite cubic-bezier(0.65, 0, 0.35, 1);
         }
 
@@ -335,23 +340,149 @@
             animation: pulseText 1.8s infinite ease-in-out;
         }
 
-      /* Animation using GPU-friendly Transforms */
         @keyframes elasticSlide {
             0% { transform: translateX(-150%) scaleX(1); }
             50% { transform: translateX(20%) scaleX(1.6); }
             100% { transform: translateX(200%) scaleX(1); }
         }
 
-        /* Animation for the gently fading text */
         @keyframes pulseText {
             0%, 100% { opacity: 0.4; }
             50% { opacity: 0.9; }
         }
 
-        /* Utility class to hide the preloader smoothly */
         #glass-preloader.hidden {
             opacity: 0;
             visibility: hidden;
+        }
+
+        /* ================= COMPACT CREAM FOOTER ================= */
+        .site-footer {
+            background-color: #fcfaf5; 
+            color: #000;
+            padding: 40px 40px 20px; 
+            margin-top: 40px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            max-width: 1800px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08); 
+            padding-bottom: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            color: #003366; 
+        }
+
+        .about-section p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: rgba(0, 0, 0, 0.7); 
+            max-width: 350px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Dubai', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 15px;
+            color: rgba(0, 0, 0, 0.5); 
+        }
+
+        .footer-email {
+            color: #003366; 
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .footer-email::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: #003366;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        .footer-email:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-socials a {
+            color: #000;
+            font-size: 1.1rem;
+            opacity: 0.5;
+            transition: opacity 0.3s ease, color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            opacity: 1;
+            color: #003366; 
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: rgba(0, 0, 0, 0.45);
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 35px;
+            }
+            .about-section p {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .site-footer { padding: 40px 20px 20px; }
+            .footer-logo { font-size: 1rem; }
+            .footer-email { font-size: 0.95rem; }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: left;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
@@ -367,9 +498,11 @@
         </div>
     </div>
 
-    <div class="page-heading">Comedy</div>
-    <div class="nav-trigger light" onclick="toggleMenu()">MENU</div>
+    <header>
+        <div class="logo">Comedy</div>
+    </header>
 
+    <div class="nav-trigger" id="menuBtn" onclick="toggleMenu()">MENU</div>
     <div class="menu-overlay" id="menu">
         <div class="menu-bg-image" id="menuBg"></div>
         <div class="menu-header-label">talent</div>
@@ -412,20 +545,49 @@
 
     <main class="roster-grid" id="comedyGrid"></main>
 
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section about-section">
+                <h3 class="footer-logo">Kendrick & Artists</h3>
+                <p>A premier talent management and booking agency representing the absolute best in comedy, music, and personal appearances worldwide.</p>
+            </div>
+            
+            <div class="footer-section contact-section">
+                <h4>Inquiries</h4>
+                <a href="mailto:info@kendrickandartists.com" class="footer-email">info@kendrickandartists.com</a>
+            </div>
+
+            <div class="footer-section social-section">
+                <h4>Follow Us</h4>
+                <div class="footer-socials">
+                    <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Kendrick & Artists. All rights reserved.</p>
+            <p>Designed in Los Angeles</p>
+        </div>
+    </footer>
+
     <script>
+        // UPDATED JAVASCRIPT FOR THE NEW MENU BUTTON
         function toggleMenu() {
             const menu = document.getElementById('menu');
-            const trigger = document.querySelector('.nav-trigger');
+            const btn = document.getElementById('menuBtn');
+
             menu.classList.toggle('active');
-            
+
             if (menu.classList.contains('active')) {
-                trigger.textContent = 'close';
-                trigger.classList.remove('light');
-                trigger.classList.add('dark');
+                btn.textContent = 'close';
+                btn.classList.add('active'); // Turns it white
             } else {
-                trigger.textContent = 'menu';
-                trigger.classList.remove('dark');
-                trigger.classList.add('light');
+                btn.textContent = 'menu';
+                btn.classList.remove('active'); // Turns it back to blue
             }
         }
 
@@ -469,19 +631,14 @@
             try {
                 const snapshot = await getDocs(q);
                 
-                // 1. Create a Document Fragment to prevent rendering lag
                 const fragment = document.createDocumentFragment();
 
                 snapshot.forEach(docSnap => {
                     const artist = docSnap.data();
 
-                    // Show artists that belong to Comedy OR Both
                     if (artist.section === "comedy" || artist.section === "both") {
-                        
-                        // --- IMAGE OPTIMIZATION LOGIC ---
                         let optimizedImgUrl = artist.imageUrl || 'https://via.placeholder.com/500';
                         
-                        // If the image is from Cloudinary, force it to be small, fast, and auto-formatted
                         if (optimizedImgUrl.includes('res.cloudinary.com')) {
                             optimizedImgUrl = optimizedImgUrl.replace('/upload/', '/upload/w_600,q_auto,f_auto/');
                         }
@@ -495,23 +652,18 @@
                             </div>
                             <div class="artist-name">${artist.name}</div>
                         `;
-                        // Append to the fragment (memory) instead of the screen directly
                         fragment.appendChild(a);
                     }
                 });
                 
-                // 3. Append everything to the screen all at once
                 grid.appendChild(fragment);
 
             } catch (error) {
                 console.error("Error loading roster:", error);
             } finally {
-                // --- THIS IS THE PRELOADER LOGIC ---
-                // Hide the preloader once the data is done loading (or if an error occurs)
                 const preloader = document.getElementById('glass-preloader');
                 if (preloader) {
                     preloader.classList.add('hidden');
-                    // Remove it entirely from the DOM after the fade-out transition
                     setTimeout(() => preloader.style.display = 'none', 800);
                 }
             }
