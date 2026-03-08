@@ -23,7 +23,15 @@
     <meta property="og:image" content="https://res.cloudinary.com/dgcr7e27r/image/upload/v1772279245/Screenshot_2026-02-28_165145_d4uibl.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dubai:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+@font-face {
+font-family: 'Dubai';
+src: local('Oswald'), local('Oswald-Regular');
+font-weight: 700;
+font-style: normal;
+}
+</style>
     <link rel="canonical" href="https://kendrickartists.com/">
     <style>
         
@@ -32,10 +40,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #000;
-            overflow: hidden; /* Prevents scroll bounce on mobile */
-        }
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #000;
+    overflow-x: hidden;
+}
 
         /* --- HERO SECTION --- */
         .hero-container {
@@ -57,6 +65,7 @@
             min-height: 100%;
             z-index: 1;
             object-fit: cover;
+            -webkit-object-fit: cover;
         }
 
         .mask-layer {
@@ -68,12 +77,18 @@
             z-index: 2;
         }
 
+      .mask-layer svg {
+    position:absolute;
+    top:0;
+    left:0;
+    transform: translateZ(0);
+}
         svg { width: 100%; height: 100%; }
 
         svg text {
             font-size: 190px;
             letter-spacing: 6px;
-            font-family: 'Dubai','Segoe UI',sans-serif;
+            font-family: 'Oswald','Segoe UI',sans-serif;
             font-weight: 900;
         }
 
@@ -352,6 +367,16 @@
             transform: translateY(100%);
             transition-delay: 0.3s;
         }
+
+
+
+        .seo-content {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
     </style>
 
     <script type="application/ld+json">
@@ -444,7 +469,7 @@ Kendrick Artists – Talent & Entertainment Management Company
                   <rect x="0" y="0" width="100%" height="100%" fill="white" />
                   <foreignObject x="0" y="0" width="100%" height="100%">
                     <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%;">
-                      <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
+                     <video autoplay muted loop playsinline webkit-playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
                         <source src="https://res.cloudinary.com/dgcr7e27r/video/upload/v1771670959/Video_Project_2_1_kru9pk.mp4" type="video/mp4">
                       </video>
                     </div>
@@ -535,7 +560,7 @@ Kendrick Artists – Talent & Entertainment Management Company
         window.addEventListener("resize", updateHeroText);
     </script>
 
-    <section style="background:#fff; padding:80px 10%; color:#000;">
+    <section class="seo-content">
   <h2>Kendrick Artists – Entertainment & Talent Management</h2>
   <p>
     Kendrick Artists is a full-service talent and entertainment management company
