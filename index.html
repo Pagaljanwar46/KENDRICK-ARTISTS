@@ -37,11 +37,30 @@
             box-sizing: border-box;
         }
 
+        /* Lock scrolling on BOTH html and body (iOS Safari ignores a body-only lock) */
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+            overscroll-behavior: none;
+        }
+
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background-color: #000;
+        }
+
+        /* --- SEO CONTENT (visually hidden on every device, still readable by crawlers & screen readers) --- */
+        .seo-content {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
             overflow: hidden;
-            /* Prevents scroll bounce on mobile */
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
         /* --- HERO SECTION --- */
@@ -52,7 +71,8 @@
             /* Use safe-area-inset to handle iOS notches and bottom bars */
             height: 100dvh;
             overflow: hidden;
-            background-color: #fff;
+            /* Black fallback so a slow/failed video never shows a blank white page */
+            background-color: #000;
         }
 
         .bg-video {
@@ -706,7 +726,7 @@
         window.addEventListener("resize", updateHeroText);
     </script>
 
-    <section style="background:#fff; padding:80px 10%; color:#000;">
+    <section class="seo-content">
         <h2>Kendrick Artists – Entertainment & Talent Management</h2>
         <p>
             Kendrick Artists is a full-service talent and entertainment management company
